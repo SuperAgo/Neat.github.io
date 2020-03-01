@@ -4,13 +4,25 @@
   
     
     <entry>
-      <title>test</title>
-      <link href="/2020/03/01/test/"/>
-      <url>/2020/03/01/test/</url>
+      <title>hexo fs.SyncWriteStream is deprecated</title>
+      <link href="/2020/03/01/hexo-DEP0061/"/>
+      <url>/2020/03/01/hexo-DEP0061/</url>
       
-        <content type="html"><![CDATA[<html><head><link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script></head><body><p>set new post</p></body></html>]]></content>
+        <content type="html"><![CDATA[<html><head><link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script></head><body><p>使用hexo-admin管理后台，在使用自动deploy时，总会报<br><code>fs.SyncWriteStream is deprecated</code><br>的错误,查找一番是现在使用的node版本不支持SyncWriteStream升级node等方法使用后均不生效。<br>后来通过–debug来查看：</p><div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@iZm5e9wgsfc1fksnwtfo33Z Neat]# hexo clean --debug</span><br><span class="line">14:08:12.283 DEBUG Writing database to /data/nginx/html/myBlog/Neat/db.json</span><br><span class="line">14:08:12.299 DEBUG Hexo version: 4.2.0</span><br><span class="line">14:08:12.299 DEBUG Working directory: /data/nginx/html/myBlog/Neat/</span><br><span class="line">14:08:12.392 DEBUG Config loaded: /data/nginx/html/myBlog/Neat/_config.yml</span><br><span class="line">14:08:12.489 DEBUG Plugin loaded: hexo-admin</span><br><span class="line">(node:30641) [DEP0061] DeprecationWarning: fs.SyncWriteStream is deprecated.</span><br></pre></td></tr></tbody></table></figure></div><p>发现问题出在hexo-admin下的hexo-fs<br>便找到 ./node_modules/hexo-admin/<br>./node_modules/hexo-admin/node_modules/hexo-fs/lib/fs.js:718<br>将exports.SyncWriteStream = fs.SyncWriteStream;注释即可</p><p><a href="/images/pasted-0.png" data-fancybox="group" data-caption="upload successful" class="fancybox"><img alt="upload successful" title="upload successful" data-src="/images/pasted-0.png" class="lazyload"></a></p></body></html>]]></content>
       
       
+      <categories>
+          
+          <category> error </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+        </tags>
       
     </entry>
     
