@@ -4,33 +4,6 @@
   
     
     <entry>
-      <title>hexo fs.SyncWriteStream is deprecated</title>
-      <link href="/2020/03/01/hexo-DEP0061/"/>
-      <url>/2020/03/01/hexo-DEP0061/</url>
-      
-        <content type="html"><![CDATA[<html><head><link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script></head><body><p>使用hexo-admin管理后台，在使用自动deploy时，总会报<br><code>fs.SyncWriteStream is deprecated</code><br>的错误,查找一番是现在使用的node版本不支持SyncWriteStream升级node等方法使用后均不生效。<br>后来通过–debug来查看：</p><div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@iZm5e9wgsfc1fksnwtfo33Z Neat]# hexo clean --debug</span><br><span class="line">14:08:12.283 DEBUG Writing database to /data/nginx/html/myBlog/Neat/db.json</span><br><span class="line">14:08:12.299 DEBUG Hexo version: 4.2.0</span><br><span class="line">14:08:12.299 DEBUG Working directory: /data/nginx/html/myBlog/Neat/</span><br><span class="line">14:08:12.392 DEBUG Config loaded: /data/nginx/html/myBlog/Neat/_config.yml</span><br><span class="line">14:08:12.489 DEBUG Plugin loaded: hexo-admin</span><br><span class="line">(node:30641) [DEP0061] DeprecationWarning: fs.SyncWriteStream is deprecated.</span><br></pre></td></tr></tbody></table></figure></div><p>发现问题出在hexo-admin下的hexo-fs<br>便找到 ./node_modules/hexo-admin/<br>./node_modules/hexo-admin/node_modules/hexo-fs/lib/fs.js:718<br>将exports.SyncWriteStream = fs.SyncWriteStream;注释即可</p><p><a href="/images/pasted-0.png" data-fancybox="group" data-caption="upload successful" class="fancybox"><img alt="upload successful" title="upload successful" data-src="/images/pasted-0.png" class="lazyload"></a></p></body></html>]]></content>
-      
-      
-      <categories>
-          
-          <category> error </category>
-          
-          <category> hexo </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> hexo </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>离别</title>
       <link href="/2020/02/25/leaving/"/>
       <url>/2020/02/25/leaving/</url>
@@ -50,6 +23,125 @@
             <tag> 小诗集 </tag>
             
             <tag> 音乐 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>nginx实现负载均衡</title>
+      <link href="/2019/05/15/nginx%20Load%20balancing/"/>
+      <url>/2019/05/15/nginx%20Load%20balancing/</url>
+      
+        <content type="html"><![CDATA[<html><head><link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script></head><body><h3 id="一、Nginx负载均衡的集中方式介绍"><a href="#一、Nginx负载均衡的集中方式介绍" class="headerlink" title="一、Nginx负载均衡的集中方式介绍"></a><strong>一、Nginx负载均衡的集中方式介绍</strong></h3><p><strong>1.1 轮询</strong><br>轮询方式是Nginx负载默认的方式，顾名思义，所有请求都按照时间顺序分配到不同的服务上，如果服务Down掉，可以自动剔除，如下配置后轮训1001服务和1002服务。</p><div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">upstream  localhost-server {</span><br><span class="line">       server    localhost:1001;</span><br><span class="line">       server    localhost:1002;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div><p><strong>1.2 权重</strong><br>指定每个服务的权重比例，weight和访问比率成正比，通常用于后端服务机器性能不统一，将性能好的分配权重高来发挥服务器最大性能，如下配置后1002服务的访问比率会是1001服务的二倍。</p><div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">upstream  localhost-server {</span><br><span class="line">       server    localhost:1001 weight=1;</span><br><span class="line">       server    localhost:1002 weight=2;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div><p><strong>1.3 iphash</strong><br>每个请求都根据访问ip的hash结果分配，经过这样的处理，每个访客固定访问一个后端服务，如下配置（ip_hash可以和weight配合使用）。</p><div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">upstream  localhost-server {</span><br><span class="line">       ip_hash; </span><br><span class="line">       server    localhost:1001 weight=1;</span><br><span class="line">       server    localhost:1002 weight=2;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div><p><strong>1.4 最少连接</strong><br>将请求分配到连接数最少的服务上。</p><div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">upstream  localhost-server {</span><br><span class="line">       least_conn;</span><br><span class="line">       server    localhost:1001 weight=1;</span><br><span class="line">       server    localhost:1002 weight=2;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div><p><strong>1.5 fair</strong><br>按后端服务器的响应时间来分配请求，响应时间短的优先分配。</p><div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">upstream  localhost-server {</span><br><span class="line">       server    localhost:1001 weight=1;</span><br><span class="line">       server    localhost:1002 weight=2;</span><br><span class="line">       fair;  </span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div><h3 id="二、Nginx配置"><a href="#二、Nginx配置" class="headerlink" title="二、Nginx配置"></a><strong>二、Nginx配置</strong></h3><p>以轮训为例，nginx.conf完整代码。</p><div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">worker_processes  1;</span><br><span class="line"></span><br><span class="line">events {</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">http {</span><br><span class="line">   upstream  localhost-server {</span><br><span class="line">       server    localhost:1001;</span><br><span class="line">       server    localhost:1002;</span><br><span class="line">   }</span><br><span class="line"></span><br><span class="line">   server {</span><br><span class="line">       listen       80;</span><br><span class="line">       server_name  localhost;</span><br><span class="line"></span><br><span class="line">       location / {</span><br><span class="line">        proxy_pass http://localhost-server;</span><br><span class="line">        proxy_redirect default;</span><br><span class="line">      }</span><br><span class="line"></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div><p>如果要修改负载均衡算法修改对应upstream模块即可。</p></body></html>]]></content>
+      
+      
+      <categories>
+          
+          <category> nginx </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Docker安装Nginx</title>
+      <link href="/2019/05/13/Docker%20pull%20Nginx/"/>
+      <url>/2019/05/13/Docker%20pull%20Nginx/</url>
+      
+        <content type="html"><![CDATA[<html><head><link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script></head><body><p>##Docker 安装 Nginx</p><p><strong>1、查看可用的 Nginx 版本</strong><br>可以用<code>docker search nginx</code> 命令来查看可用版本</p><p><strong>2、取 Nginx 镜像</strong><br>这里我们拉取官方的最新版本的镜像：</p><div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">docker</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight docker"><figcaption><span>pull nginx:latest```  </span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">**<span class="number">3</span>、查看本地镜像**  </span><br><span class="line">使用以下命令来查看是否已安装了 nginx：```docker images</span><br></pre></td></tr></tbody></table></figure></div><div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">nginx               latest              c7460dfcab50        2 months ago        126MB</span><br><span class="line">redis               latest              f7302e4ab3a8        7 months ago        98.2MB</span><br></pre></td></tr></tbody></table></figure></div><p>可以看到我们已经安装了最新版本（latest）的 nginx 镜像。</p><p><strong>4、运行容器</strong><br>安装完成后，我们可以使用以下命令来运行 nginx 容器：  </p><div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name nginx-test -p 8080:80 -d nginx</span><br></pre></td></tr></tbody></table></figure></div><p>参数说明：</p><p>–name nginx-test：容器名称。<br>-p 8080:80： 端口进行映射，将本地 8080 端口映射到容器内部的 80 端口。<br>-d nginx： 设置容器在在后台一直运行。</p><p><strong>5、安装成功</strong><br>最后我们可以通过浏览器可以直接访问 8080 端口的 nginx 服务。</p></body></html>]]></content>
+      
+      
+      <categories>
+          
+          <category> Docker </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> nginx </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Docker使用</title>
+      <link href="/2019/05/13/Docker/"/>
+      <url>/2019/05/13/Docker/</url>
+      
+        <content type="html"><![CDATA[<html><head><link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script></head><body><h3 id="Docker的简介"><a href="#Docker的简介" class="headerlink" title="Docker的简介"></a>Docker的简介</h3><p>Docker 是一个开源的应用容器引擎，基于Go语言并遵从Apache2.0协议开源。让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何流行的Linux机器上，也可以实现虚拟化，容器是完全使用沙箱机制，相互之间不会有任何接口。</p><h3 id="Docker的组成："><a href="#Docker的组成：" class="headerlink" title="Docker的组成："></a>Docker的组成：</h3><p>1 Docker Client 客户端<br>2 Docker Daemon 守护进程<br>3 Docker Image 镜像<br>4 Docker Container 容器<br>从2017年3月开始Docker在原来的基础上分为两个分支版本: Docker CE 和 Docker EE。Docker CE 即社区免费版，Docker EE 即企业版，强调安全，但需付费使用。</p><h3 id="Docker-CE的安装"><a href="#Docker-CE的安装" class="headerlink" title="Docker CE的安装"></a>Docker CE的安装</h3><p>1 较旧版本的Docker被称为docker或docker-engine,如果已安装这些，请卸载它们。未安装略过此步骤</p><div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">yum remove -y docker \</span><br><span class="line">              docker-client \</span><br><span class="line">              docker-client-latest \</span><br><span class="line">              docker-common \</span><br><span class="line">              docker-latest \</span><br><span class="line">              docker-latest-logrotate \</span><br><span class="line">              docker-logrotate \</span><br><span class="line">              docker-engine</span><br></pre></td></tr></tbody></table></figure></div><p>2 安装所需要的软件</p><div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y yum-utils device-mapper-persistent-data lvm2</span><br></pre></td></tr></tbody></table></figure></div><p>3 设置Docker的存储库</p><div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</span><br></pre></td></tr></tbody></table></figure></div><p>4 安装最新版Docker-ce</p><div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y docker-ce</span><br></pre></td></tr></tbody></table></figure></div><p><strong>如遇错误提示：</strong><br>错误：软件包：3:docker-ce-18.09.6-3.el7.x86_64 (docker-ce-stable)<br>需要：container-selinux >= 2.9</p><p>执行以下命令,下载container-selinux-2.95的rpm包</p><div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://mirror.centos.org/centos/7/extras/x86_64/Packages/container-selinux-2.95-2.el7_6.noarch.rpm</span><br></pre></td></tr></tbody></table></figure></div><p>安装</p><div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh container-selinux-2.95-2.el7_6.noarch.rpm</span><br></pre></td></tr></tbody></table></figure></div><p>再次执行安装命令:</p><div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y docker-ce</span><br></pre></td></tr></tbody></table></figure></div><p>5 启动docke</p><div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload && systemctl start docker</span><br></pre></td></tr></tbody></table></figure></div><p>查看docker的版本</p><div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">docker</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight docker"><figcaption><span>version ```显示</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">Client:</span><br><span class="line"> Version:           <span class="number">18.09</span>.<span class="number">6</span></span><br><span class="line"> API version:       <span class="number">1.39</span></span><br><span class="line"> Go version:        go1.<span class="number">10.8</span></span><br><span class="line"> Git commit:        <span class="number">481</span>bc77156</span><br><span class="line"> Built:             Sat May  <span class="number">4</span> <span class="number">02</span>:<span class="number">34</span>:<span class="number">58</span> <span class="number">2019</span></span><br><span class="line"> OS/Arch:           linux/amd64</span><br><span class="line"> Experimental:      false</span><br><span class="line"></span><br><span class="line">Server: Docker Engine - Community</span><br><span class="line"> Engine:</span><br><span class="line">  Version:          <span class="number">18.09</span>.<span class="number">6</span></span><br><span class="line">  API version:      <span class="number">1.39</span> (minimum version <span class="number">1.12</span>)</span><br><span class="line">  Go version:       go1.<span class="number">10.8</span></span><br><span class="line">  Git commit:       <span class="number">481</span>bc77</span><br><span class="line">  Built:            Sat May  <span class="number">4</span> <span class="number">02</span>:<span class="number">02</span>:<span class="number">43</span> <span class="number">2019</span></span><br><span class="line">  OS/Arch:          linux/amd64</span><br><span class="line">  Experimental:     false</span><br></pre></td></tr></tbody></table></figure></div><p>即<strong>安装成功</strong><br><strong>查看更详细的的信息</strong><code>docker info</code><br><strong>Docker常用命令</strong><br>可以直接在终端输入<code>docker --help</code>列出所有docker的用法以及所有命令</p><p><strong>查看本地存在的docker镜像</strong><code>docker images</code></p><pre><code>REPOSITORY          TAG                 IMAGE ID            CREATED             SIZEnginx               latest              c7460dfcab50        2 months ago        126MBredis               latest              f7302e4ab3a8        7 months ago        98.2MB</code></pre></body></html>]]></content>
+      
+      
+      <categories>
+          
+          <category> Docker </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Docker </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>后台运行hexo</title>
+      <link href="/2019/03/02/Background%20process%20hexo/"/>
+      <url>/2019/03/02/Background%20process%20hexo/</url>
+      
+        <content type="html"><![CDATA[<html><head><link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script></head><body><p>hexo的 hexo s命令适合本地预览，那么该如何让hexo在后台一直运行呢?<br>在使用hexo s &发现在断开ssh后hexo的运行状态也会随即终止，后来发现一个方法，可以是hexo后台运行。</p><p>那就是 用pm2 来接管hexo的进程</p><p>开始操作：<br>首先安装pm2</p><div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm  install -g pm2</span><br></pre></td></tr></tbody></table></figure></div><p>写一个执行脚本<br>在博客根目录下面创建一个hexo_run.js</p><div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//run</span><br><span class="line">const { exec } = require('child_process')</span><br><span class="line">exec('hexo server',(error, stdout, stderr) => {</span><br><span class="line">        if(error){</span><br><span class="line">                console.log('exec error: ${error}')</span><br><span class="line">                return</span><br><span class="line">        }</span><br><span class="line">        console.log('stdout: ${stdout}');</span><br><span class="line">        console.log('stderr: ${stderr}');</span><br><span class="line">})</span><br></pre></td></tr></tbody></table></figure></div><p>然后运行该脚本</p><div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /root/xxxxxx/blog</span><br><span class="line">pm2 start hexo_run.js</span><br></pre></td></tr></tbody></table></figure></div><p>绑定个人域名后即可在任何设备打开添加博文啦</p></body></html>]]></content>
+      
+      
+      <categories>
+          
+          <category> hexo </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> pm2 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>hexo fs.SyncWriteStream is deprecated</title>
+      <link href="/2019/03/01/hexo-DEP0061/"/>
+      <url>/2019/03/01/hexo-DEP0061/</url>
+      
+        <content type="html"><![CDATA[<html><head><link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script></head><body><p>使用hexo-admin管理后台，在使用自动deploy时，总会报<br><code>fs.SyncWriteStream is deprecated</code><br>的错误,查找一番是现在使用的node版本不支持SyncWriteStream升级node等方法使用后均不生效。<br>后来通过–debug来查看：</p><div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@iZm5e9wgsfc1fksnwtfo33Z Neat]# hexo clean --debug</span><br><span class="line">14:08:12.283 DEBUG Writing database to /data/nginx/html/myBlog/Neat/db.json</span><br><span class="line">14:08:12.299 DEBUG Hexo version: 4.2.0</span><br><span class="line">14:08:12.299 DEBUG Working directory: /data/nginx/html/myBlog/Neat/</span><br><span class="line">14:08:12.392 DEBUG Config loaded: /data/nginx/html/myBlog/Neat/_config.yml</span><br><span class="line">14:08:12.489 DEBUG Plugin loaded: hexo-admin</span><br><span class="line">(node:30641) [DEP0061] DeprecationWarning: fs.SyncWriteStream is deprecated.</span><br></pre></td></tr></tbody></table></figure></div><p>发现问题出在hexo-admin下的hexo-fs<br>便找到 ./node_modules/hexo-admin/<br>./node_modules/hexo-admin/node_modules/hexo-fs/lib/fs.js:718<br>将exports.SyncWriteStream = fs.SyncWriteStream;注释即可</p><p><a href="/images/pasted-0.png" data-fancybox="group" data-caption="upload successful" class="fancybox"><img alt="upload successful" title="upload successful" data-src="/images/pasted-0.png" class="lazyload"></a></p></body></html>]]></content>
+      
+      
+      <categories>
+          
+          <category> hexo </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> error </tag>
             
         </tags>
       
