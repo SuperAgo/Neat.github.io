@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+  
+  <entry>
+    <title>青春的诗</title>
+    <link href="/2020/04/09/Jay/"/>
+    <url>/2020/04/09/Jay/</url>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><blockquote><p>青春有很多种，其中一种叫做周杰伦。</p></blockquote><div>    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=350 height=5970 src="//music.163.com/outchain/player?type=0&id=4945505356&auto=1&height=430">    </iframe></div>]]></content>
+    
+    
+    <categories>
+      
+      <category>音乐</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Jay Chou</tag>
+      
+      <tag>音乐</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>离别</title>
+    <link href="/2020/02/25/leaving/"/>
+    <url>/2020/02/25/leaving/</url>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>少年总向望着远方<br>梦想的远方总是美好<br>一次次送别<br>脚步越来越远<br>他乡广阔却也寂寥<br>累了回头歇歇脚<br>人潮人海中<br>无声牵挂总在背后</p><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=484732237&auto=1&height=66"></iframe>]]></content>
+    
+    
+    <categories>
+      
+      <category>随笔</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>音乐</tag>
+      
+      <tag>小诗集</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>MyBatis</title>
+    <link href="/2019/09/28/MyBatis/"/>
+    <url>/2019/09/28/MyBatis/</url>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h5 id="和-的区别。"><a href="#和-的区别。" class="headerlink" title="#{}和${}的区别。"></a>#{}和${}的区别。</h5><p>#{}是预编译处理，${}是字符串替换。<br>Mybatis在处理#{}时，会将sql中的#{}替换为?号，调用PreparedStatement的set方法来赋值；<br>Mybatis在处理{}替换成变量的值。<br>使用#{}可以有效的防止SQL注入，提高系统安全性。</p><h5 id="如何获取自动生成的-主-键值。"><a href="#如何获取自动生成的-主-键值。" class="headerlink" title="如何获取自动生成的(主)键值。"></a>如何获取自动生成的(主)键值。</h5><p>insert 方法总是返回一个int值 - 这个值代表的是插入的行数。<br>而自动生成的键值在 insert 方法执行完后可以被设置到传入的参数对象中。<br>示例：  </p><pre><code>&lt;insert id=&quot;insert&quot; parameterType=&quot;Spares&quot;         useGeneratedKeys=&quot;true&quot; keyProperty=&quot;id&quot;&gt;    INSERT INTO spares         (spares_id, spares_name, spares_type_id, spares_spec)    VALUES         (#{id}, #{name}, #{typeId}, #{spec})&lt;/insert&gt;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>MyBatis</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Nginx实现负载均衡</title>
+    <link href="/2019/09/15/nginx-load-balancing/"/>
+    <url>/2019/09/15/nginx-load-balancing/</url>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="一、Nginx负载均衡的集中方式介绍"><a href="#一、Nginx负载均衡的集中方式介绍" class="headerlink" title="一、Nginx负载均衡的集中方式介绍"></a><strong>一、Nginx负载均衡的集中方式介绍</strong></h3><p><strong>1.1 轮询</strong><br>轮询方式是Nginx负载默认的方式，顾名思义，所有请求都按照时间顺序分配到不同的服务上，如果服务Down掉，可以自动剔除，如下配置后轮训1001服务和1002服务。</p><pre><code>upstream  localhost-server {       server    localhost:1001;       server    localhost:1002;}</code></pre><p><strong>1.2 权重</strong><br>指定每个服务的权重比例，weight和访问比率成正比，通常用于后端服务机器性能不统一，将性能好的分配权重高来发挥服务器最大性能，如下配置后1002服务的访问比率会是1001服务的二倍。</p><pre><code>upstream  localhost-server {       server    localhost:1001 weight=1;       server    localhost:1002 weight=2;}</code></pre><p><strong>1.3 iphash</strong><br>每个请求都根据访问ip的hash结果分配，经过这样的处理，每个访客固定访问一个后端服务，如下配置（ip_hash可以和weight配合使用）。</p><pre><code>upstream  localhost-server {       ip_hash;        server    localhost:1001 weight=1;       server    localhost:1002 weight=2;}</code></pre><p><strong>1.4 最少连接</strong><br>将请求分配到连接数最少的服务上。</p><pre><code>upstream  localhost-server {       least_conn;       server    localhost:1001 weight=1;       server    localhost:1002 weight=2;}</code></pre><p><strong>1.5 fair</strong><br>按后端服务器的响应时间来分配请求，响应时间短的优先分配。</p><pre><code>upstream  localhost-server {       server    localhost:1001 weight=1;       server    localhost:1002 weight=2;       fair;  }</code></pre><h3 id="二、Nginx配置"><a href="#二、Nginx配置" class="headerlink" title="二、Nginx配置"></a><strong>二、Nginx配置</strong></h3><p>以轮训为例，nginx.conf完整代码。</p><pre><code>worker_processes  1;events {    worker_connections  1024;}http {   upstream  localhost-server {       server    localhost:1001;       server    localhost:1002;   }   server {       listen       80;       server_name  localhost;       location / {        proxy_pass http://localhost-server;        proxy_redirect default;      }    }}</code></pre><p>如果要修改负载均衡算法修改对应upstream模块即可。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Nginx</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Nginx</tag>
+      
+      <tag>负载均衡</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Docker安装Nginx</title>
+    <link href="/2019/09/13/Docker-pull-Nginx/"/>
+    <url>/2019/09/13/Docker-pull-Nginx/</url>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h4 id="查看可用的-Nginx-版本"><a href="#查看可用的-Nginx-版本" class="headerlink" title="查看可用的 Nginx 版本"></a><strong>查看可用的 Nginx 版本</strong></h4><p>可以用<code>docker search nginx</code> 命令来查看可用版本</p><h4 id="取-Nginx-镜像"><a href="#取-Nginx-镜像" class="headerlink" title="取 Nginx 镜像"></a><strong>取 Nginx 镜像</strong></h4><p>这里我们拉取官方的最新版本的镜像：<code>docker pull nginx:latest</code>  </p><h4 id="查看本地镜像"><a href="#查看本地镜像" class="headerlink" title="查看本地镜像"></a><strong>查看本地镜像</strong></h4><p>使用以下命令来查看是否已安装了 nginx：<code>docker images</code></p><pre><code>docker imagesREPOSITORY          TAG                 IMAGE ID            CREATED             SIZEnginx               latest              c7460dfcab50        2 months ago        126MBredis               latest              f7302e4ab3a8        7 months ago        98.2MB</code></pre><p>可以看到我们已经安装了最新版本（latest）的 nginx 镜像。</p><h4 id="运行容器"><a href="#运行容器" class="headerlink" title="运行容器"></a><strong>运行容器</strong></h4><p>安装完成后，我们可以使用以下命令来运行 nginx 容器：  </p><pre><code>docker run --name nginx-test -p 8080:80 -d nginx</code></pre><p>参数说明：</p><p>–name nginx-test：容器名称。<br>-p 8080:80： 端口进行映射，将本地 8080 端口映射到容器内部的 80 端口。<br>-d nginx： 设置容器在在后台一直运行。</p><h4 id="安装成功"><a href="#安装成功" class="headerlink" title="安装成功"></a><strong>安装成功</strong></h4><p>最后我们可以通过浏览器可以直接访问 8080 端口的 nginx 服务。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Docker</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Nginx</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Docker使用</title>
+    <link href="/2019/09/13/Docker/"/>
+    <url>/2019/09/13/Docker/</url>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="Docker的简介"><a href="#Docker的简介" class="headerlink" title="Docker的简介"></a>Docker的简介</h3><p>Docker 是一个开源的应用容器引擎，基于Go语言并遵从Apache2.0协议开源。让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何流行的Linux机器上，也可以实现虚拟化，容器是完全使用沙箱机制，相互之间不会有任何接口。</p><h3 id="Docker的组成："><a href="#Docker的组成：" class="headerlink" title="Docker的组成："></a>Docker的组成：</h3><p>1 Docker Client 客户端<br>2 Docker Daemon 守护进程<br>3 Docker Image 镜像<br>4 Docker Container 容器<br>从2017年3月开始Docker在原来的基础上分为两个分支版本: Docker CE 和 Docker EE。Docker CE 即社区免费版，Docker EE 即企业版，强调安全，但需付费使用。</p><h3 id="Docker-CE的安装"><a href="#Docker-CE的安装" class="headerlink" title="Docker CE的安装"></a>Docker CE的安装</h3><p>1 较旧版本的Docker被称为docker或docker-engine,如果已安装这些，请卸载它们。未安装略过此步骤</p><pre><code>yum remove -y docker \              docker-client \              docker-client-latest \              docker-common \              docker-latest \              docker-latest-logrotate \              docker-logrotate \              docker-engine</code></pre><p>2 安装所需要的软件</p><pre><code>yum install -y yum-utils device-mapper-persistent-data lvm2</code></pre><p>3 设置Docker的存储库</p><pre><code>yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</code></pre><p>4 安装最新版Docker-ce</p><pre><code>yum install -y docker-ce </code></pre><p><strong>如遇错误提示：</strong><br>错误：软件包：3:docker-ce-18.09.6-3.el7.x86_64 (docker-ce-stable)<br>需要：container-selinux &gt;= 2.9</p><p>执行以下命令,下载container-selinux-2.95的rpm包</p><pre><code>wget http://mirror.centos.org/centos/7/extras/x86_64/Packages/container-selinux-2.95-2.el7_6.noarch.rpm</code></pre><p>安装</p><pre><code>rpm -ivh container-selinux-2.95-2.el7_6.noarch.rpm</code></pre><p>再次执行安装命令:</p><pre><code>yum install -y docker-ce</code></pre><p>5 启动docke</p><pre><code>systemctl daemon-reload &amp;&amp; systemctl start docker</code></pre><p>查看docker的版本<br><code>docker version</code>显示</p><pre><code>Client: Version:           18.09.6 API version:       1.39 Go version:        go1.10.8 Git commit:        481bc77156 Built:             Sat May  4 02:34:58 2019 OS/Arch:           linux/amd64 Experimental:      falseServer: Docker Engine - Community Engine:  Version:          18.09.6  API version:      1.39 (minimum version 1.12)  Go version:       go1.10.8  Git commit:       481bc77  Built:            Sat May  4 02:02:43 2019  OS/Arch:          linux/amd64  Experimental:     false</code></pre><p>即<strong>安装成功</strong><br><strong>查看更详细的的信息</strong><code>docker info</code><br><strong>Docker常用命令</strong><br>可以直接在终端输入<code>docker --help</code>列出所有docker的用法以及所有命令</p><p><strong>查看本地存在的docker镜像</strong><code>docker images</code></p><pre><code>REPOSITORY          TAG                 IMAGE ID            CREATED             SIZEnginx               latest              c7460dfcab50        2 months ago        126MBredis               latest              f7302e4ab3a8        7 months ago        98.2MB</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>Docker</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Docker</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Linux常用命令</title>
+    <link href="/2019/08/26/Linux-common-commands/"/>
+    <url>/2019/08/26/Linux-common-commands/</url>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h5 id="cd命令"><a href="#cd命令" class="headerlink" title="cd命令"></a>cd命令</h5><pre><code>命令格式：cd &lt;路径&gt;  </code></pre><p>意义：cd是change directory 的缩写；cd命令后面跟一个路径，用于切换当前用户所在的路径，其中路径可以是绝对路径也可以是相对路径。<br>示例：<br><code>cd /system/bin</code> 表示切换到/system/bin路径下。<br><code>cd logs</code> 表示切换到logs路径下。<br><code>cd /</code> 表示切换到根目录。<br><code>cd ../</code> 表示切换到上一层路径。</p><h5 id="ls命令"><a href="#ls命令" class="headerlink" title="ls命令"></a>ls命令</h5><pre><code>命令格式：ls &lt;参数&gt; &lt;路径&gt;</code></pre><p>意义：ls是list的缩写；ls命令后面可以跟一个路径或参数，也可以不跟，表示列出路径或当前目录下的所有文件信息。最常用的的参数是“-l”，也就是“ls -l”命令。<br>示例：<br><code>ls /</code>显示根目录下的所有文件及文件夹。<br><code>ls -l /data</code>显示/data路径下的所有文件及文件夹的详细信息。<br><code>ls -l</code>显示当前路径下的所有文件及文件夹的详细信息<br><code>ls *l wc</code>显示当前目录下面的文件数量。</p><h5 id="rm命令"><a href="#rm命令" class="headerlink" title="rm命令"></a>rm命令</h5><pre><code>命令格式： rm &lt;文件&gt; 或 rm -r &lt;文件夹&gt;</code></pre><p>意义：rm是remove 的缩写。用于删除文件或文件夹，常用参数-r -f，-r表示删除目录，也可以用于删除文件，-f表示强制删除，不需要确认。同样的，删除文件前需保证当前用户对当前路径有修改的权限。<br>示例：<br><code>rm -rf path</code> 删除path。<br><code>rm test.txt</code> 删除test.txt。</p><h5 id="mkdir命令"><a href="#mkdir命令" class="headerlink" title="mkdir命令"></a>mkdir命令</h5><pre><code>命令格式： mkdir 文件夹  </code></pre><p>意义：mkdir是make directory 的缩写。用于创建文件夹。创建文件夹前需保证当前用户对当前路径有修改的权限。<br>示例：<br><code>mkdir /data/path</code> 在/data路径下创建path文件夹。<br><code>mkdir -p a/b/c</code> 参数 -p用于创建多级文件夹，这句命令表示在当前路径下创建文件夹a， 而a文件夹包含子文件夹b，b文件夹下又包含子文件夹c。</p><h5 id="cp命令"><a href="#cp命令" class="headerlink" title="cp命令"></a>cp命令</h5><pre><code>命令格式： cp &lt;文件&gt;&lt;目标文件&gt;或者cp -r&lt;文件夹&gt;&lt;目标文件夹&gt;</code></pre><p>意义：cp是copy 的缩写。用于复制文件或文件夹。<br>示例：<br><code>cp /data/logs /data/local/tmp/logs</code>复制/data路径下的logs到/data/local/tmp路径下。<br><code>cp 1.sh /sdcard/</code> 复制当前路径下的1.sh到/sdcard下。</p><h5 id="ps命令"><a href="#ps命令" class="headerlink" title="ps命令"></a>ps命令</h5><pre><code>ps [options] [--help]</code></pre><p>用于显示当前进程 (process) 的状态。<br>参数：</p><p>ps 的参数非常多, 在此仅列出几个常用的参数并大略介绍含义<br>-A 列出所有的行程<br>-w 显示加宽可以显示较多的资讯<br>-au 显示较详细的资讯<br>-aux 显示所有包含其他使用者的行程<br>au(x) 输出格式 :<br>USER PID %CPU %MEM VSZ RSS TTY STAT START TIME COMMAND<br>USER: 行程拥有者<br>PID: pid<br>%CPU: 占用的 CPU 使用率<br>%MEM: 占用的记忆体使用率<br>VSZ: 占用的虚拟记忆体大小<br>RSS: 占用的记忆体大小<br>TTY: 终端的次要装置号码 (minor device number of tty)<br>STAT: 该行程的状态:<br>D: 无法中断的休眠状态 (通常 IO 的进程)<br>R: 正在执行中<br>S: 静止状态<br>T: 暂停执行<br>Z: 不存在但暂时无法消除<br>W: 没有足够的记忆体分页可分配<br>&lt;: 高优先序的行程<br>N: 低优先序的行程<br>L: 有记忆体分页分配并锁在记忆体内 (实时系统或捱A I/O)<br>START: 行程开始时间<br>TIME: 执行的时间<br>COMMAND:所执行的指令<br>示例：<br><code>ps -A</code> 显示进程信息<br>显示指定用户信息<br><code>ps -u root</code>显示root进程用户信息<br>显示所有进程信息，连同命令行<br><code>ps -ef</code>显示所有命令，连带命令行<br><code>ps -ef |grep java</code> 正在运行的java进程</p><h5 id="kill命令"><a href="#kill命令" class="headerlink" title="kill命令"></a>kill命令</h5><pre><code>命令格式：kill PID码  </code></pre><p>意义：结束当前进程<br>示例：<br>先通过输入命令<code>ps au</code>查看进程，找到需要终止进程的PID再通过kill PID即可，如我这里想要终止的进程是vim test.py，查到的PID是3163，我们可以输入kill 3163结束这个程序，如果结束不了，可以通过kill -9 PID码强制结束，即kii -9 3163</p><h5 id="find命令"><a href="#find命令" class="headerlink" title="find命令"></a>find命令</h5><pre><code>命令格式：find   path   -option   [   -print ]   [ -exec   -ok   command ]   {} \;</code></pre><p>意义：在指定目录下查找文件。任何位于参数之前的字符串都将被视为欲查找的目录名。如果使用该命令时，不设置任何参数，则find命令将在当前目录下查找子目录与文件。并且将查找到的子目录和文件全部进行显示。 </p><p>参数说明 :</p><p>find 根据下列规则判断 path 和 expression，在命令列上第一个 - ( ) , ! 之前的部份为 path，之后的是 expression。如果 path 是空字串则使用目前路径，如果 expression 是空字串则使用 -print 为预设 expression。</p><p>expression 中可使用的选项有二三十个之多，在此只介绍最常用的部份。</p><p>-mount, -xdev : 只检查和指定目录在同一个文件系统下的文件，避免列出其它文件系统中的文件</p><p>-amin n : 在过去 n 分钟内被读取过</p><p>-anewer file : 比文件 file 更晚被读取过的文件</p><p>-atime n : 在过去n天内被读取过的文件</p><p>-cmin n : 在过去 n 分钟内被修改过</p><p>-cnewer file :比文件 file 更新的文件</p><p>-ctime n : 在过去n天内被修改过的文件</p><p>-empty : 空的文件-gid n or -group name : gid 是 n 或是 group 名称是 name</p><p>-ipath p, -path p : 路径名称符合 p 的文件，ipath 会忽略大小写</p><p>-name name, -iname name : 文件名称符合 name 的文件。iname 会忽略大小写</p><p>-size n : 文件大小 是 n 单位，b 代表 512 位元组的区块，c 表示字元数，k 表示 kilo bytes，w 是二个位元组。-type c : 文件类型是 c 的文件。</p><p>d: 目录</p><p>c: 字型装置文件</p><p>b: 区块装置文件</p><p>p: 具名贮列</p><p>f: 一般文件</p><p>l: 符号连结</p><p>s: socket</p><p>-pid n : process id 是 n 的文件</p><p>你可以使用 ( ) 将运算式分隔，并使用下列运算。</p><p>exp1 -and exp2</p><p>! expr</p><p>-not expr</p><p>exp1 -or exp2</p><p>exp1, exp2<br>示例：<br><code>find . -name &quot;*.c&quot;</code>将目前目录及其子目录下所有延伸档名是 c 的文件列出来。<br><code># find . -type f</code>将目前目录其其下子目录中所有一般文件列出<br><code>find / -size +500M -print0|xargs -0 du -m|sort -nr</code>find指令为找出500M以上的文件，print0和xargs -0配合使用，用来解决文件名中有空格或特殊字符问题。du -m是查看这些文件的大小，并以m为单位显示。最后sort -nr是按照数字反向排序（大的文件在前）<br><code>find / -name *xxx*.c</code> 模糊查找xxx.c的文件</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Linux</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>运维</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Markdown语法</title>
+    <link href="/2019/08/08/Markdown_syntax/"/>
+    <url>/2019/08/08/Markdown_syntax/</url>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h5 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h5><p>一个#是一级标题，二个#是二级标题，以此类推。支持六级标题。<br>注：标准语法一般在#后跟个空格再写文字</p><p><strong>示例</strong></p><pre><code># 这是一级标题## 这是二级标题### 这是三级标题#### 这是四级标题##### 这是五级标题###### 这是六级标题</code></pre><p><strong>效果</strong>  </p><h1 id="这是一级标题"><a href="#这是一级标题" class="headerlink" title="这是一级标题"></a>这是一级标题</h1><h2 id="这是二级标题"><a href="#这是二级标题" class="headerlink" title="这是二级标题"></a>这是二级标题</h2><h3 id="这是三级标题"><a href="#这是三级标题" class="headerlink" title="这是三级标题"></a>这是三级标题</h3><h4 id="这是四级标题"><a href="#这是四级标题" class="headerlink" title="这是四级标题"></a>这是四级标题</h4><h5 id="这是五级标题"><a href="#这是五级标题" class="headerlink" title="这是五级标题"></a>这是五级标题</h5><h6 id="这是六级标题"><a href="#这是六级标题" class="headerlink" title="这是六级标题"></a>这是六级标题</h6><hr><h5 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h5><p>加粗<br>要加粗的文字左右分别用两个*号包起来</p><p>斜体<br>要倾斜的文字左右分别用一个*号包起来</p><p>斜体加粗<br>要倾斜和加粗的文字左右分别用三个*号包起来</p><p>删除线<br>要加删除线的文字左右分别用两个~~号包起来</p><p><strong>示例</strong></p><pre><code>**这是加粗的文字***这是倾斜的文字****这是斜体加粗的文字***~~这是加删除线的文字~~</code></pre><p><strong>效果</strong>  </p><p><strong>这是加粗的文字</strong><br><em>这是倾斜的文字</em><br><strong><em>这是斜体加粗的文字</em></strong><br><del>这是加删除线的文字</del>  </p><hr><h5 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h5><p>在引用的文字前加&gt;即可。引用也可以嵌套，如加两个&gt;&gt;三个&gt;&gt;&gt;<br>n个…<br><strong>示例</strong></p><pre><code>&gt;这是引用的内容&gt;&gt;这是引用的内容&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;这是引用的内容</code></pre><p><strong>效果</strong>  </p><blockquote><p>这是引用的内容</p><blockquote><p>这是引用的内容</p><blockquote><blockquote><blockquote><blockquote><blockquote><blockquote><blockquote><blockquote><p>这是引用的内容</p></blockquote></blockquote></blockquote></blockquote></blockquote></blockquote></blockquote></blockquote></blockquote></blockquote><hr><h5 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h5><p>三个或者三个以上的 - 或者 * 都可以。<br><strong>示例</strong></p><pre><code>-------********</code></pre><p><strong>效果</strong>   </p><hr><hr><hr><hr><h5 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h5><p>语法：</p><p>![图片alt](图片地址 ‘’图片title’’)</p><p>图片alt就是显示在图片下面的文字，相当于对图片内容的解释。<br>图片title是图片的标题，当鼠标移到图片上时显示的内容。title可加可不加<br><strong>示例</strong></p><pre><code>![blockchain](https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=702257389,1274025419&amp;fm=27&amp;gp=0.jpg &quot;区块链&quot;)</code></pre><p><strong>效果</strong><br><img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=702257389,1274025419&fm=27&gp=0.jpg" srcset="/img/loading.gif" alt="blockchain" title="区块链"></p><hr><h5 id="超链接"><a href="#超链接" class="headerlink" title="超链接"></a>超链接</h5><p>语法：</p><p><a href="超链接地址" title="超链接title">超链接名</a><br>title可加可不加<br><strong>示例</strong></p><pre><code>[简书](http://jianshu.com)[百度](http://baidu.com)</code></pre><p><strong>效果</strong><br><a href="http://jianshu.com" target="_blank" rel="noopener">简书</a><br><a href="http://baidu.com" target="_blank" rel="noopener">百度</a></p><hr><h5 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h5><ul><li>1.无序列表<br>语法：<br>无序列表用 - + * 任何一种都可以</li></ul><p><strong>示例</strong>  </p><pre><code>- 列表内容+ 列表内容* 列表内容注意：- + * 跟内容之间都要有一个空格</code></pre><ul><li>列表内容</li></ul><ul><li>列表内容</li></ul><ul><li>列表内容</li></ul><ul><li>2.有序列表<br>语法：<br>数字加点</li></ul><pre><code>1. 列表内容2. 列表内容3. 列表内容注意：序号跟内容之间要有空格</code></pre><ol><li>列表内容</li><li>列表内容</li><li>列表内容</li></ol><ul><li>3.列表嵌套<br>上一级和下一级之间敲三个空格即可</li></ul><pre><code>- 一级无序列表内容      - 二级无序列表内容      - 二级无序列表内容      - 二级无序列表内容</code></pre><ul><li>一级无序列表内容   <ul><li>二级无序列表内容   </li><li>二级无序列表内容   </li><li>二级无序列表内容</li></ul></li></ul><hr><h5 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h5><p>语法：</p><pre><code>表头|表头|表头---|:--:|---:内容|内容|内容内容|内容|内容第二行分割表头和内容。- 有一个就行，为了对齐，多加了几个文字默认居左-两边加：表示文字居中-右边加：表示文字居右注：原生的语法两边都要用 | 包起来。此处省略</code></pre><p><strong>示例</strong></p><pre><code>姓名|技能|排行--|:--:|--:刘备|哭|大哥关羽|打|二哥张飞|骂|三弟</code></pre><p><strong>效果</strong>  </p><table><thead><tr><th>姓名</th><th align="center">技能</th><th align="right">排行</th></tr></thead><tbody><tr><td>刘备</td><td align="center">哭</td><td align="right">大哥</td></tr><tr><td>关羽</td><td align="center">打</td><td align="right">二哥</td></tr><tr><td>张飞</td><td align="center">骂</td><td align="right">三弟</td></tr></tbody></table><h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><p>语法：<br>单行代码：代码之间分别用一个反引号包起来</p><pre><code>    `代码内容`</code></pre><p>代码块：代码之间分别用三个反引号包起来，且两边的反引号单独占一行</p><pre><code>  (```)          代码          代码          代码  （```）</code></pre><blockquote><p>注：为了防止转译，前后三个反引号处加了小括号，实际是没有的。这里只是用来演示，实际中去掉两边小括号即可。  </p></blockquote><p><strong>示例</strong><br>单行代码<br><code>create database hero;</code></p><p>代码块</p><pre><code>    function fun(){         echo &quot;这是一句非常牛逼的代码&quot;;    }    fun();</code></pre><h5 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h5><p><code>flowst=&gt;start: 开始op=&gt;operation: My Operationcond=&gt;condition: Yes or No?e=&gt;endst-&gt;op-&gt;condcond(yes)-&gt;econd(no)-&gt;op&amp;</code></p><p>摘自<a href="https://www.jianshu.com/p/191d1e21f7ed/" target="_blank" rel="noopener">https://www.jianshu.com/p/191d1e21f7ed/</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Markdown</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Markdown</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Docker中nginx开启https</title>
+    <link href="/2019/08/08/Nginx_in_Docker_opens_https/"/>
+    <url>/2019/08/08/Nginx_in_Docker_opens_https/</url>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>打开网页老是显示不安全，强迫症的我最终决定开启https.<br>由于使用的是阿里云，所以直接在阿里云上申请了ssl，比较简单这里就不多赘述。  </p><h5 id="申请ssl备案通过后"><a href="#申请ssl备案通过后" class="headerlink" title="申请ssl备案通过后"></a>申请ssl备案通过后</h5><p><img src="/images/pasted-1.png" srcset="/img/loading.gif" alt="upload successful"><br>点击下载，选择nginx版本</p><p><img src="/images/pasted-2.png" srcset="/img/loading.gif" alt="upload successful"></p><h5 id="nginx配置"><a href="#nginx配置" class="headerlink" title="nginx配置"></a>nginx配置</h5><p>首先将下载的pem文件和key文件上传至服务器nginx文件夹下（方便自己记忆的文件夹/映射文件夹）<br>然后打开nginx的配置文件<br>新增如下配置，开启http请求自动重定向至https</p><pre><code>server {        listen       80;        server_name  XXXXX;        return 301 https://$server_name$request_uri;   #将所有http请求通过rewrite重定向到https。    }</code></pre><p>然后添加</p><pre><code>server {       listen    443 ssl;       server_name  XXXXX;       #ssl on      ssl_certificate /etc/ssl/XXXXXX.pem;   #将domain name.pem替换成您证书的文件名。       ssl_certificate_key /etc/ssl/XXXXXX.key;   #将domain name.key替换成您证书的密钥文件名。       ssl_session_timeout 5m;       ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;  #使用此加密套件。       ssl_protocols TLSv1 TLSv1.1 TLSv1.2;   #使用该协议进行配置。       ssl_prefer_server_ciphers on;</code></pre><p>根据nginx版本不同,<br>*<em>nginx1.15.0更新日志<br>Changes with nginx 1.15.0                                        05 Jun 2018<br>    *) Change: the “ssl” directive is deprecated; the “ssl” parameter of the<br>       “listen” directive should be used instead.  *</em><br>so，nginx1.15.0前ssl开启使用 </p><pre><code>listen    443ssl on</code></pre><p>1.15.0之后使用</p><pre><code>listen 443 ssl</code></pre><p>否则会报<code>the &quot;ssl&quot; directive is deprecated, use the &quot;listen ... ssl&quot; directive instead in /etc/nginx/nginx.conf</code>错误<br>如果是没有使用docker直接使用的nginx到这一步就可以重启nginx然后通过https访问了。</p><h5 id="docker映射修改"><a href="#docker映射修改" class="headerlink" title="docker映射修改"></a>docker映射修改</h5><p>由于我是用的是docker的nginx容器，所以需要修改一下映射命令（之前的文章有写）<br>加上新的ssl文件夹和443端口映射（443端口一定要加上，否则还是访问不了）</p><pre><code>docker run --name nginx80 -d -p 443:443 -p 80:80 -v /data/nginx/html:/usr/share/nginx/html -v /data/nginx/conf/nginx.conf:/etc/nginx/nginx.conf  -v /data/nginx/logs:/var/log/nginx -v /data/nginx/conf.d:/etc/nginx/conf.d -v /data/nginx/ssl:/etc/ssl -d nginx:latest</code></pre><p>然后就可以愉快的使用https访问自己的网站啦！</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>HTTPS</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Nginx</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>@Controller与@RestController的区别</title>
+    <link href="/2019/08/05/Difference-between-Controller-and-RestController/"/>
+    <url>/2019/08/05/Difference-between-Controller-and-RestController/</url>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>1.使用@RestController注解相当于同时在Controller上使用了@Controller+@ResponsBody注解（或者Controller上使用@Controller注解+方法块上使用@ResponseBody注解）；<br>2.只在Controller上使用@RestController注解只能返回return中的内容无法返回jsp/html页面(配置的视图解析器 InternalResourceViewResolver不起作用)<br>3.若想使Controller返回视图则需使用@Controller注解；同时需要返回数据则需在对应方法上加注@ResponseBody</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Spring</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Tomcat部署（多）项目</title>
+    <link href="/2019/07/29/Tomcat-build-projects/"/>
+    <url>/2019/07/29/Tomcat-build-projects/</url>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h5 id="1-单个项目"><a href="#1-单个项目" class="headerlink" title="1.单个项目"></a>1.单个项目</h5><pre><code>    1.1 jar省略    1.2 war    1.3 静态项目  详略</code></pre><h5 id="2-多个项目"><a href="#2-多个项目" class="headerlink" title="2.多个项目"></a>2.多个项目</h5><pre><code>    2.1 单个Tomcat    略。    参考（https://www.cnblogs.com/casefour/p/11843582.html）    2.2 多个Tomcat    以windows为例，安装配置多个tomcat后，不同的tomcat配置不同的端口，打开cmd分别进入各个tomcat的bin文件夹输入命令    ```service.bat install/remove [service_name]/[user username]```进行服务的安装卸载。不同端口服务应起不同的名字，不然会报错。然后就可以在windows的服务里进行设置服务的启停以及开机启动。</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>Tomcat</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>后台运行hexo</title>
+    <link href="/2019/07/26/Background-process-hexo/"/>
+    <url>/2019/07/26/Background-process-hexo/</url>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>hexo的 hexo s命令适合本地预览，那么该如何让hexo在后台一直运行呢?<br>在使用hexo s &amp;发现在断开ssh后hexo的运行状态也会随即终止，后来发现一个方法，可以是hexo后台运行。</p><p>那就是 用pm2 来接管hexo的进程</p><p>开始操作：<br>首先安装pm2</p><pre><code>npm  install -g pm2</code></pre><p>写一个执行脚本<br>在博客根目录下面创建一个hexo_run.js</p><pre><code>//runconst { exec } = require(&#39;child_process&#39;)exec(&#39;hexo server&#39;,(error, stdout, stderr) =&gt; {        if(error){                console.log(&#39;exec error: ${error}&#39;)                return        }        console.log(&#39;stdout: ${stdout}&#39;);        console.log(&#39;stderr: ${stderr}&#39;);})</code></pre><p>然后运行该脚本</p><pre><code>cd /root/xxxxxx/blogpm2 start hexo_run.js</code></pre><p>绑定个人域名后即可在任何设备打开添加博文啦</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Hexo</category>
+      
+      <category>后台运行</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>pm2</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>hexo fs.SyncWriteStream is deprecated</title>
+    <link href="/2019/07/25/hexo-DEP0061/"/>
+    <url>/2019/07/25/hexo-DEP0061/</url>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>使用hexo-admin管理后台，在使用自动deploy时，总会报<br><code>fs.SyncWriteStream is deprecated</code><br>的错误,查找一番是现在使用的node版本不支持SyncWriteStream升级node等方法使用后均不生效。<br>后来通过–debug来查看：</p><pre><code>[root@iZm5e9wgsfc1fksnwtfo33Z Neat]# hexo clean --debug14:08:12.283 DEBUG Writing database to /data/nginx/html/myBlog/Neat/db.json14:08:12.299 DEBUG Hexo version: 4.2.014:08:12.299 DEBUG Working directory: /data/nginx/html/myBlog/Neat/14:08:12.392 DEBUG Config loaded: /data/nginx/html/myBlog/Neat/_config.yml14:08:12.489 DEBUG Plugin loaded: hexo-admin(node:30641) [DEP0061] DeprecationWarning: fs.SyncWriteStream is deprecated.</code></pre><p>发现问题出在hexo-admin下的hexo-fs<br>便找到 ./node_modules/hexo-admin/<br>./node_modules/hexo-admin/node_modules/hexo-fs/lib/fs.js:718<br>将exports.SyncWriteStream = fs.SyncWriteStream;注释即可</p><p><img src="/images/pasted-0.png" srcset="/img/loading.gif" alt="upload successful"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Hexo</category>
+      
+      <category>Error</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Error</tag>
+      
+      <tag>Hexo</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  
+</search>
