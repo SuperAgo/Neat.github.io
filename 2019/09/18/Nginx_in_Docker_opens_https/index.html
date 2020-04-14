@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="六六">
   <meta name="keywords" content="">
-  <title>归档 - Neat</title>
+  <title>Docker中nginx开启https - Neat</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css" />
@@ -42,7 +42,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -124,7 +124,7 @@
 </nav>
 
     <div class="view intro-2" id="background" parallax=true
-         style="background: url('https://file.neatman.club/1ac1f1f89ad9497abcb8/archive.webp') no-repeat center center;
+         style="background: url('/img/default.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -133,6 +133,45 @@
               
             </span>
 
+            
+              
+                <div class="mt-3 post-meta">
+                  <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+                  <time datetime="2019-09-18 14:11">
+                    星期三, 九月 18日 2019, 2:11 下午
+                  </time>
+                </div>
+              
+
+              <div class="mt-1">
+                
+                  
+                  <span class="post-meta mr-2">
+                    <i class="iconfont icon-chart"></i>
+                    503 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta mr-2">
+                      <i class="iconfont icon-clock-fill"></i>
+                    
+                    
+                    6
+                     分钟
+                  </span>
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  <span id="busuanzi_container_page_pv" class="post-meta" style="display: none">
+                    <i class="iconfont icon-eye" aria-hidden="true"></i>
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>
+                
+              </div>
             
           </div>
 
@@ -144,49 +183,152 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">共计 13 篇文章</p>
-  <hr>
-  
-    
       
-      <p class="h5">2019</p>
-    
-    <a href="/2019/07/25/hexo-DEP0061/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">hexo fs.SyncWriteStream is deprecated</span>
-      <span style="float: right;">07-25</span>
-    </a>
-  
+
+<div class="container-fluid">
+  <div class="row">
+  	
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
 </div>
 
-  <nav aria-label="navigation">
-    <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/archives/2019/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/archives/2019/">1</a><span class="page-number current">2</span>
-    </span>
-  </nav>
-  
-  <script>
-    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
-      ele.href += '#board';
-    }
+      </div>
+    
+	
+      <div class="d-none d-lg-block col-lg-2"></div>
+    
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p>打开网页老是显示不安全，强迫症的我最终决定开启https.<br>由于使用的是阿里云，所以直接在阿里云上申请了ssl，比较简单这里就不多赘述。  </p>
+<h5 id="申请ssl备案通过后"><a href="#申请ssl备案通过后" class="headerlink" title="申请ssl备案通过后"></a>申请ssl备案通过后</h5><p><img src="/images/pasted-1.png" srcset="/img/loading.gif" alt="upload successful"><br>点击下载，选择nginx版本</p>
+<p><img src="/images/pasted-2.png" srcset="/img/loading.gif" alt="upload successful"></p>
+<h5 id="nginx配置"><a href="#nginx配置" class="headerlink" title="nginx配置"></a>nginx配置</h5><p>首先将下载的pem文件和key文件上传至服务器nginx文件夹下（方便自己记忆的文件夹/映射文件夹）<br>然后打开nginx的配置文件<br>新增如下配置，开启http请求自动重定向至https</p>
+<pre><code>server {
+        listen       80;
+        server_name  XXXXX;
+        return 301 https://$server_name$request_uri;   #将所有http请求通过rewrite重定向到https。
+    }</code></pre><p>然后添加</p>
+<pre><code>server {
+       listen    443 ssl;
+       server_name  XXXXX;
+
+       #ssl on
+      ssl_certificate /etc/ssl/XXXXXX.pem;   #将domain name.pem替换成您证书的文件名。
+       ssl_certificate_key /etc/ssl/XXXXXX.key;   #将domain name.key替换成您证书的密钥文件名。
+       ssl_session_timeout 5m;
+       ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;  #使用此加密套件。
+       ssl_protocols TLSv1 TLSv1.1 TLSv1.2;   #使用该协议进行配置。
+       ssl_prefer_server_ciphers on;</code></pre><p>根据nginx版本不同,<br>*<em>nginx1.15.0更新日志<br>Changes with nginx 1.15.0                                        05 Jun 2018<br>    *) Change: the “ssl” directive is deprecated; the “ssl” parameter of the<br>       “listen” directive should be used instead.  *</em><br>so，nginx1.15.0前ssl开启使用 </p>
+<pre><code>listen    443
+ssl on</code></pre><p>1.15.0之后使用</p>
+<pre><code>listen 443 ssl</code></pre><p>否则会报<code>the &quot;ssl&quot; directive is deprecated, use the &quot;listen ... ssl&quot; directive instead in /etc/nginx/nginx.conf</code>错误<br>如果是没有使用docker直接使用的nginx到这一步就可以重启nginx然后通过https访问了。</p>
+<h5 id="docker映射修改"><a href="#docker映射修改" class="headerlink" title="docker映射修改"></a>docker映射修改</h5><p>由于我是用的是docker的nginx容器，所以需要修改一下映射命令（之前的文章有写）<br>加上新的ssl文件夹和443端口映射（443端口一定要加上，否则还是访问不了）</p>
+<pre><code>docker run --name nginx80 -d -p 443:443 -p 80:80 -v /data/nginx/html:/usr/share/nginx/html -v /data/nginx/conf/nginx.conf:/etc/nginx/nginx.conf  -v /data/nginx/logs:/var/log/nginx -v /data/nginx/conf.d:/etc/nginx/conf.d -v /data/nginx/ssl:/etc/ssl -d nginx:latest</code></pre><p>然后就可以愉快的使用https访问自己的网站啦！</p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/HTTPS/">HTTPS</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Nginx/">Nginx</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/02/25/leaving/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">离别</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2019/09/15/nginx-load-balancing/">
+                        <span class="hidden-mobile">Nginx实现负载均衡的几种方法</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script defer src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script defer src="https://cdn.staticfile.org/valine/1.3.10/Valine.min.js" ></script>
+
+  <script type="text/javascript">
+    var notify = 'false' === 'true';
+    var verify = 'false' === 'true';
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+
+      new Valine({
+        el: '#vcomments',
+        notify: notify,
+        verify: verify,
+        app_id: "BX3locaPJFzm8FDckhoObFw7-gzGzoHsz",
+        app_key: "suhWtka1QQwEaxryJ8LBoxAv",
+        placeholder: "说点什么",
+        avatar: "/retro",
+        meta: ["nick","mail","link"],
+        pageSize: "10",
+      });
+    };
   </script>
 
 
-
               </div>
-            </div>
+            
           </div>
         </div>
       </div>
+    </div>
+	<div class="d-none d-lg-block col-lg-2"></div>
+  </div>
+</div>
+
+<!-- Custom -->
+
+  <div class="col-lg-7 mx-auto nopadding-md">
+    <div class="container custom post-content mx-auto">
+      <img src="https://octodex.github.com/images/jetpacktocat.png" srcset="/img/loading.gif" class="rounded mx-auto d-block mt-5" style="width:150px; height:150px;">
+    </div>
+  </div>
+
+
     
   </main>
 
@@ -297,6 +439,34 @@
 
 
 
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
 
 
   <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
@@ -313,6 +483,20 @@
 
 
 
+  <script  src="https://cdn.staticfile.org/prettify/188.0.0/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').each(function () {
+        const pre = $(this);
+        if (pre.find('code.mermaid').length > 0) {
+          return;
+        }
+        pre.addClass('prettyprint  linenums');
+      });
+      prettyPrint();
+    })
+  </script>
+
 
 
   <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
@@ -320,7 +504,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "档案管理中心&nbsp;",
+        "Docker中nginx开启https&nbsp;",
       ],
       cursorChar: "☁",
       typeSpeed: 70,
@@ -363,6 +547,20 @@
   </script>
 
 
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
 
 
 
@@ -426,6 +624,13 @@
 
 
 
+
+  <script  src="https://cdn.staticfile.org/mermaid/8.4.8/mermaid.min.js" ></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({"theme":"default"});
+    }
+  </script>
 
 
 

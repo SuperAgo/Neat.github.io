@@ -161,131 +161,38 @@
   <div class="row mx-auto index-card">
     
     
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2019/07/29/Tomcat-build-projects/">Tomcat部署（多）项目</a>
-
-      <a href="/2019/07/29/Tomcat-build-projects/" class="index-excerpt">
-        
-        
-          
-        
-        <div>1.单个项目    1.1 jar省略
-    1.2 war
-    1.3 静态项目
-  详略2.多个项目    2.1 单个Tomcat
-    略。
-    参考（https://www.cnblogs.com/casefour/p/11843582.html）
-    2.2 多个Tomcat
-    以windows为例，安装配置多个tomcat后，不同的tomcat配置不同的端口，打</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2019-07-29
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Tomcat/">Tomcat</a>
-            
-          </div>
-        
-        
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2019/07/28/MyBatis/" target="_self">
+          <img src="/images/mybatis.jpg" srcset="/img/loading.gif" alt="MyBatis">
+        </a>
       </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
     
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2019/07/26/Background-process-hexo/">后台运行hexo</a>
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a class="index-header" href="/2019/07/28/MyBatis/">MyBatis</a>
 
-      <a href="/2019/07/26/Background-process-hexo/" class="index-excerpt">
+      <a href="/2019/07/28/MyBatis/" class="index-excerpt">
         
         
           
         
-        <div>hexo的 hexo s命令适合本地预览，那么该如何让hexo在后台一直运行呢?在使用hexo s &amp;发现在断开ssh后hexo的运行状态也会随即终止，后来发现一个方法，可以是hexo后台运行。
-那就是 用pm2 来接管hexo的进程
-开始操作：首先安装pm2
-npm  install -g pm2写一个执行脚本在博客根目录下面创建一个hexo_run.js
-//run
-const { e</div>
+        <div>#{}和${}的区别。#{}是预编译处理，${}是字符串替换。Mybatis在处理#{}时，会将sql中的#{}替换为?号，调用PreparedStatement的set方法来赋值；Mybatis在处理{}替换成变量的值。使用#{}可以有效的防止SQL注入，提高系统安全性。
+如何获取自动生成的(主)键值。insert 方法总是返回一个int值 - 这个值代表的是插入的行数。而自动生成的键值在 in</div>
       </a>
 
       <div class="index-btm post-metas">
         
           <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2019-07-26
+            <i class="iconfont icon-date"></i>&nbsp;2019-07-28
           </div>
         
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/Hexo/">Hexo</a>
-            
-              <a href="/categories/Hexo/%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C/">后台运行</a>
+              <a href="/categories/MyBatis/">MyBatis</a>
             
           </div>
         
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/pm2/">pm2</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2019/07/25/hexo-DEP0061/">hexo fs.SyncWriteStream is deprecated</a>
-
-      <a href="/2019/07/25/hexo-DEP0061/" class="index-excerpt">
-        
-        
-          
-        
-        <div>使用hexo-admin管理后台，在使用自动deploy时，总会报fs.SyncWriteStream is deprecated的错误,查找一番是现在使用的node版本不支持SyncWriteStream升级node等方法使用后均不生效。后来通过–debug来查看：
-[root@iZm5e9wgsfc1fksnwtfo33Z Neat]# hexo clean --debug
-14:08:12.</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2019-07-25
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Hexo/">Hexo</a>
-            
-              <a href="/categories/Hexo/Error/">Error</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Error/">Error</a>
-            
-              <a href="/tags/Hexo/">Hexo</a>
-            
-          </div>
         
       </div>
     </div>
