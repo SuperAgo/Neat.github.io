@@ -272,8 +272,8 @@ redis               latest              f7302e4ab3a8        7 months ago        
                 
   <div id="vcomments"></div>
   <script defer src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-  <script defer src="https://cdn.staticfile.org/valine/1.3.10/Valine.min.js" ></script>
-
+  
+  <script src="/js/Valine.min.js"></script>
   <script type="text/javascript">
     var notify = 'false' === 'true';
     var verify = 'false' === 'true';
@@ -281,18 +281,16 @@ redis               latest              f7302e4ab3a8        7 months ago        
     window.onload = function () {
       oldLoadVa && oldLoadVa();
 
-      new Valine({
-        el: '#vcomments',
-        notify: notify,
-        verify: verify,
-        app_id: "BX3locaPJFzm8FDckhoObFw7-gzGzoHsz",
-        app_key: "suhWtka1QQwEaxryJ8LBoxAv",
-        placeholder: "说点什么",
-        avatar: "/retro",
-        meta: ["nick","mail","link"],
-        pageSize: "10",
-      });
-    };
+	 new Valine({
+        lang: 'zh-cn',
+        admin_email: 'super100wj@163.com',
+        el: '#vcomments' ,
+        appId: '{{ theme.valine.appid }}',
+        appKey: '{{ theme.valine.appkey }}',
+        emoticon_url: 'https://cloud.panjunwen.com/alu',
+        emoticon_list: ["狂汗.png","不说话.png","汗.png","坐等.png","献花.png","不高兴.png","中刀.png","害羞.png","皱眉.png","小眼睛.png","暗地观察.png"],
+        placeholder: '{{ theme.valine.placeholder }}',
+    });
   </script>
 
 
