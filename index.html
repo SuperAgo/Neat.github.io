@@ -57,6 +57,12 @@
     <!-- Collapsible content -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
+		
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
         
           
           
@@ -112,10 +118,13 @@
               友链</a>
           </li>
         
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/message/">
+              <i class="iconfont icon-love"></i>
+              留言</a>
           </li>
         
       </ul>
@@ -163,25 +172,29 @@
     
       <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2020/04/09/Jay/" target="_self">
-          <img src="/images/music.jpg" srcset="/img/loading.gif" alt="青春的诗">
+          <img src="/images/music.jpg" srcset="/img/loading.gif" alt="那些年我们一起听过的杰伦">
         </a>
       </div>
     
     <div class="col-12 col-md-8 mx-auto index-info">
-      <a class="index-header" href="/2020/04/09/Jay/">青春的诗</a>
+      <a class="index-header" href="/2020/04/09/Jay/">那些年我们一起听过的杰伦</a>
 
       <a href="/2020/04/09/Jay/" class="index-excerpt">
         
         
           
         
-        <div>
-青春有很多种，其中一种叫做周杰伦。
-
+        <div>down了杰伦的歌下来，上传到网易云盘播放了额，个人听听不知道会不会被告盗版。。。用aplayer.js的meting下载插件
+npm install hexo-tag-aplayer_config.yml配置
+aplayer:
+  meting: truemd语法
+{% meting "id" "netease" "playlist" %}
+demo效果
 
     
-    
-</div>
+
+
+放个meting的有版权</div>
       </a>
 
       <div class="index-btm post-metas">
@@ -204,7 +217,7 @@
             
               <a href="/tags/Jay-Chou/">Jay Chou</a>
             
-              <a href="/tags/%E9%9F%B3%E4%B9%90/">音乐</a>
+              <a href="/tags/hexo/">hexo</a>
             
           </div>
         
@@ -251,9 +264,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E9%9F%B3%E4%B9%90/">音乐</a>
-            
               <a href="/tags/%E5%B0%8F%E8%AF%97%E9%9B%86/">小诗集</a>
+            
+              <a href="/tags/%E9%9F%B3%E4%B9%90/">音乐</a>
             
           </div>
         
@@ -915,5 +928,5 @@ ls命令命令格式：ls</div>
 
 
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"dialog":{"enable":true,"hitokoto":true},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":1},"log":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"dialog":{"enable":true,"hitokoto":true},"display":{"position":"right","width":150,"height":300,"hOffset":0,"vOffset":-20},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":1,"opacityOnHover":0.2},"log":false});</script></body>
 </html>
