@@ -7,8 +7,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/neat.png">
-  <link rel="icon" type="image/png" href="/img/neat.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://file.neatman.club/f5b96a15c5dd3ef552e5/a9w2k-w7jly-001.ico">
+  <link rel="icon" type="image/png" href="https://file.neatman.club/f5b96a15c5dd3ef552e5/a9w2k-w7jly-001.ico">
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -20,15 +20,19 @@
   <title>Docker使用 - Neat</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
-<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.18.1/styles/ir-black.min.css" />
+
 
 <!-- 主题依赖的图标库，不要自行修改 -->
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_9n5xqdrq0nc.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_fmb4a04yx8h.css">
 
 
 
-  <link  rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css" />
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_ijqayz9ro8k.css">
 
 
 
@@ -36,6 +40,10 @@
 <link  rel="stylesheet" href="/css/main.css" />
 
 <!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
 
 
 <meta name="generator" content="Hexo 4.2.0"></head>
@@ -57,12 +65,6 @@
     <!-- Collapsible content -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
-		
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
-          </li>
-        
         
           
           
@@ -118,13 +120,10 @@
               友链</a>
           </li>
         
-          
-          
-          
-          <li class="nav-item">
-            <a class="nav-link" href="/message/">
-              <i class="iconfont icon-love"></i>
-              留言</a>
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
           </li>
         
       </ul>
@@ -157,7 +156,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    535 字
+                    556 字
                   </span>
                 
 
@@ -167,18 +166,11 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    7
+                    8
                      分钟
                   </span>
                 
 
-                
-                  <!-- 不蒜子统计文章PV -->
-                  
-                  <span id="busuanzi_container_page_pv" class="post-meta" style="display: none">
-                    <i class="iconfont icon-eye" aria-hidden="true"></i>
-                    <span id="busuanzi_value_page_pv"></span> 次
-                  </span>
                 
               </div>
             
@@ -196,60 +188,70 @@
 
 <div class="container-fluid">
   <div class="row">
-  	
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div id="tocbot"></div>
-</div>
-
-      </div>
-    
+    <div class="d-none d-lg-block col-lg-2"></div>
     <div class="col-lg-8 nopadding-md">
       <div class="container nopadding-md" id="board-ctn">
         <div class="py-5" id="board">
           <div class="post-content mx-auto" id="post">
             
+              <p class="note note-info">
+                
+                  本文最后更新于：星期五, 四月 17日 2020, 5:49 下午
+                
+              </p>
+            
             <article class="markdown-body">
-              <h3 id="Docker的简介"><a href="#Docker的简介" class="headerlink" title="Docker的简介"></a>Docker的简介</h3><p>Docker 是一个开源的应用容器引擎，基于Go语言并遵从Apache2.0协议开源。让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何流行的Linux机器上，也可以实现虚拟化，容器是完全使用沙箱机制，相互之间不会有任何接口。</p>
-<h3 id="Docker的组成："><a href="#Docker的组成：" class="headerlink" title="Docker的组成："></a>Docker的组成：</h3><p>1 Docker Client 客户端<br>2 Docker Daemon 守护进程<br>3 Docker Image 镜像<br>4 Docker Container 容器<br>从2017年3月开始Docker在原来的基础上分为两个分支版本: Docker CE 和 Docker EE。Docker CE 即社区免费版，Docker EE 即企业版，强调安全，但需付费使用。</p>
-<h3 id="Docker-CE的安装"><a href="#Docker-CE的安装" class="headerlink" title="Docker CE的安装"></a>Docker CE的安装</h3><p>1 较旧版本的Docker被称为docker或docker-engine,如果已安装这些，请卸载它们。未安装略过此步骤</p>
-<pre><code>yum remove -y docker \
+              <h3 id="1-Docker的简介"><a href="#1-Docker的简介" class="headerlink" title="1.Docker的简介"></a>1.Docker的简介</h3><p>Docker 是一个开源的应用容器引擎，基于Go语言并遵从Apache2.0协议开源。让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何流行的Linux机器上，也可以实现虚拟化，容器是完全使用沙箱机制，相互之间不会有任何接口。</p>
+<h3 id="2-Docker的组成："><a href="#2-Docker的组成：" class="headerlink" title="2.Docker的组成："></a>2.Docker的组成：</h3><ul>
+<li>1 Docker Client 客户端</li>
+<li>2 Docker Daemon 守护进程</li>
+<li>3 Docker Image 镜像</li>
+<li>4 Docker Container 容器<br>从2017年3月开始Docker在原来的基础上分为两个分支版本: Docker CE 和 Docker EE。Docker CE 即社区免费版，Docker EE 即企业版，强调安全，但需付费使用。</li>
+</ul>
+<h3 id="3Docker-CE的安装"><a href="#3Docker-CE的安装" class="headerlink" title="3Docker CE的安装"></a>3Docker CE的安装</h3><h4 id="1-卸载较旧版本"><a href="#1-卸载较旧版本" class="headerlink" title="1.卸载较旧版本"></a>1.卸载较旧版本</h4><p>较旧版本的Docker被称为docker或docker-engine,如果已安装这些，请卸载它们。未安装略过此步骤</p>
+<div class="hljs"><pre><code class="hljs plain">yum remove -y docker \
               docker-client \
               docker-client-latest \
               docker-common \
               docker-latest \
               docker-latest-logrotate \
               docker-logrotate \
-              docker-engine</code></pre><p>2 安装所需要的软件</p>
-<pre><code>yum install -y yum-utils device-mapper-persistent-data lvm2</code></pre><p>3 设置Docker的存储库</p>
-<pre><code>yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</code></pre><p>4 安装最新版Docker-ce</p>
-<pre><code>yum install -y docker-ce </code></pre><p><strong>如遇错误提示：</strong><br>错误：软件包：3:docker-ce-18.09.6-3.el7.x86_64 (docker-ce-stable)<br>需要：container-selinux &gt;= 2.9</p>
+              docker-engine</code></pre></div>
+<h4 id="2-安装所需要的软件"><a href="#2-安装所需要的软件" class="headerlink" title="2.安装所需要的软件"></a>2.安装所需要的软件</h4><div class="hljs"><pre><code class="hljs plain">yum install -y yum-utils device-mapper-persistent-data lvm2</code></pre></div>
+<h4 id="3-设置Docker的存储库"><a href="#3-设置Docker的存储库" class="headerlink" title="3.设置Docker的存储库"></a>3.设置Docker的存储库</h4><div class="hljs"><pre><code class="hljs plain">yum-config-manager --add-repo https:&#x2F;&#x2F;download.docker.com&#x2F;linux&#x2F;centos&#x2F;docker-ce.repo</code></pre></div>
+<h4 id="4-安装最新版Docker-ce"><a href="#4-安装最新版Docker-ce" class="headerlink" title="4.安装最新版Docker-ce"></a>4.安装最新版Docker-ce</h4><div class="hljs"><pre><code class="hljs plain">yum install -y docker-ce</code></pre></div>
+<p><strong>如遇错误提示：</strong><br>错误：软件包：3:docker-ce-18.09.6-3.el7.x86_64 (docker-ce-stable)<br>需要：container-selinux &gt;= 2.9</p>
 <p>执行以下命令,下载container-selinux-2.95的rpm包</p>
-<pre><code>wget http://mirror.centos.org/centos/7/extras/x86_64/Packages/container-selinux-2.95-2.el7_6.noarch.rpm</code></pre><p>安装</p>
-<pre><code>rpm -ivh container-selinux-2.95-2.el7_6.noarch.rpm</code></pre><p>再次执行安装命令:</p>
-<pre><code>yum install -y docker-ce</code></pre><p>5 启动docke</p>
-<pre><code>systemctl daemon-reload &amp;&amp; systemctl start docker</code></pre><p>查看docker的版本<br><code>docker version</code>显示</p>
-<pre><code>Client:
- Version:           18.09.6
- API version:       1.39
- Go version:        go1.10.8
- Git commit:        481bc77156
- Built:             Sat May  4 02:34:58 2019
+<div class="hljs"><pre><code class="hljs plain">wget http:&#x2F;&#x2F;mirror.centos.org&#x2F;centos&#x2F;7&#x2F;extras&#x2F;x86_64&#x2F;Packages&#x2F;container-selinux-2.95-2.el7_6.noarch.rpm</code></pre></div>
+<p>安装</p>
+<div class="hljs"><pre><code class="hljs plain">rpm -ivh container-selinux-2.95-2.el7_6.noarch.rpm</code></pre></div>
+<p>再次执行安装命令:</p>
+<div class="hljs"><pre><code class="hljs plain">yum install -y docker-ce</code></pre></div>
+<h4 id="5-启动docker"><a href="#5-启动docker" class="headerlink" title="5.启动docker"></a>5.启动docker</h4><div class="hljs"><pre><code class="hljs plain">systemctl daemon-reload &amp;&amp; systemctl start docker</code></pre></div>
+
+<p>查看docker的版本</p>
+<div class="hljs"><pre><code class="hljs docker">```
+Client:
+ Version:           <span class="hljs-number">18.09</span>.<span class="hljs-number">6</span>
+ API version:       <span class="hljs-number">1.39</span>
+ Go version:        go1.<span class="hljs-number">10.8</span>
+ Git commit:        <span class="hljs-number">481</span>bc77156
+ Built:             Sat May  <span class="hljs-number">4</span> <span class="hljs-number">02</span>:<span class="hljs-number">34</span>:<span class="hljs-number">58</span> <span class="hljs-number">2019</span>
  OS/Arch:           linux/amd64
  Experimental:      false
 
 Server: Docker Engine - Community
  Engine:
-  Version:          18.09.6
-  API version:      1.39 (minimum version 1.12)
-  Go version:       go1.10.8
-  Git commit:       481bc77
-  Built:            Sat May  4 02:02:43 2019
+  Version:          <span class="hljs-number">18.09</span>.<span class="hljs-number">6</span>
+  API version:      <span class="hljs-number">1.39</span> (minimum version <span class="hljs-number">1.12</span>)
+  Go version:       go1.<span class="hljs-number">10.8</span>
+  Git commit:       <span class="hljs-number">481</span>bc77
+  Built:            Sat May  <span class="hljs-number">4</span> <span class="hljs-number">02</span>:<span class="hljs-number">02</span>:<span class="hljs-number">43</span> <span class="hljs-number">2019</span>
   OS/Arch:          linux/amd64
-  Experimental:     false</code></pre><p>即<strong>安装成功</strong><br><strong>查看更详细的的信息</strong><code>docker info</code><br><strong>Docker常用命令</strong><br>可以直接在终端输入<code>docker --help</code>列出所有docker的用法以及所有命令</p>
+  Experimental:     false</code></pre></div>
+<p>即<strong>安装成功</strong><br><strong>查看更详细的的信息</strong><code>docker info</code><br><strong>Docker常用命令</strong><br>可以直接在终端输入<code>docker --help</code>列出所有docker的用法以及所有命令</p>
 <p><strong>查看本地存在的docker镜像</strong><code>docker images</code></p>
-<pre><code>
+<div class="hljs"><pre><code>
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 nginx               latest              c7460dfcab50        2 months ago        126MB
 redis               latest              f7302e4ab3a8        7 months ago        98.2MB
@@ -257,7 +259,7 @@ redis               latest              f7302e4ab3a8        7 months ago        
 
 
 
-</code></pre>
+</code></pre></div>
             </article>
             <hr>
             <div>
@@ -279,6 +281,8 @@ redis               latest              f7302e4ab3a8        7 months ago        
                   </div>
                 
               </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 国际协议</a> 。转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">
@@ -311,32 +315,32 @@ redis               latest              f7302e4ab3a8        7 months ago        
               <div class="comments" id="comments">
                 
                 
-  <script defer src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-  <script src="/js/src/Valine.min.js"></script>
+  <div id="vcomments"></div>
+  <script defer src="https://cdn.staticfile.org/valine/1.4.4/Valine.min.js" ></script>
+
   <script type="text/javascript">
-    var notify = 'false' === 'true';
-    var verify = 'true' === 'true';
     var oldLoadVa = window.onload;
     window.onload = function () {
       oldLoadVa && oldLoadVa();
 
-	 new Valine({
-        lang: 'zh-cn',
-        admin_email: 'super100wj@163.com',
-		notify: notify,
-        verify: verify,
-        el: '#comments' ,
-        appId: "BX3locaPJFzm8FDckhoObFw7-gzGzoHsz",
-        appKey: "suhWtka1QQwEaxryJ8LBoxAv",
-        emoticon_url: 'https://cloud.panjunwen.com/alu',
-        emoticon_list: ["狂汗.png","不说话.png","汗.png","坐等.png","献花.png","不高兴.png","中刀.png","害羞.png","皱眉.png","小眼睛.png","暗地观察.png"],
-        placeholder: "说点什么",
-		avatar: "/retro",
+      new Valine({
+        el: "#vcomments",
+        app_id: "BX3locaPJFzm8FDckhoObFw7-gzGzoHsz",
+        app_key: "suhWtka1QQwEaxryJ8LBoxAv",
+        placeholder: "说点什么吧，评论会邮件提醒哦~",
+        path: window.location.pathname,
+        avatar: "retro",
         meta: ["nick","mail","link"],
         pageSize: "10",
-	});
+        lang: "zh-CN",
+        highlight: false,
+        recordIP: true,
+        serverURLs: "",
+      });
     };
   </script>
+  <noscript>Please enable JavaScript to view the <a href="https://valine.js.org" target="_blank" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
 
 
               </div>
@@ -345,7 +349,15 @@ redis               latest              f7302e4ab3a8        7 months ago        
         </div>
       </div>
     </div>
-	<div class="d-none d-lg-block col-lg-2"></div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
   </div>
 </div>
 
@@ -353,7 +365,7 @@ redis               latest              f7302e4ab3a8        7 months ago        
 
   <div class="col-lg-7 mx-auto nopadding-md">
     <div class="container custom post-content mx-auto">
-      <img src="https://octodex.github.com/images/jetpacktocat.png" srcset="/img/loading.gif" class="rounded mx-auto d-block mt-5" style="width:150px; height:150px;">
+      <img src="/images/jetpacktocat.png" srcset="/img/loading.gif" class="rounded mx-auto d-block mt-5" style="width:150px; height:150px;">
     </div>
   </div>
 
@@ -392,38 +404,11 @@ redis               latest              f7302e4ab3a8        7 months ago        
   
 
   
-    <!-- APlayer 音乐播放器 -->
-    <div id="aplayer"></div>
-    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
-<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
-<script type="text/javascript">
-  var oldLoadAp = window.onload;
-  window.onload = function () {
-    oldLoadAp && oldLoadAp();
-
-    new APlayer({
-      container: document.getElementById('aplayer'),
-      fixed: true,
-      autoplay: 'false' === 'true',
-	  lrcType: 3,
-      loop: 'all',
-      order: 'random',
-      theme: '#b7daff',
-      preload: 'none',
-      audio: [{"name":"Friend","artist":"玉置浩二","url":"https://file.neatman.club/6b86773c1c989750a39c/Friend.mp3","cover":"https://file.neatman.club/dac5127d6f45a95daea5/Friend.jpg","lrc":"https://file.neatman.club/eeff747817b8215a3347/Friend.lrc"},{"name":"Don`t Cry","artist":"Guns & Roses","url":"https://file.neatman.club/944df0c22808b5382a25/Don%27t%20Cry%20%28Original%29.mp3","cover":"https://file.neatman.club/7da2106a494695102b02/Don%27t%20Cry%20%28Original%29.jpg","lrc":"https://file.neatman.club/2c7da25f2ccd912cd22a/Don%27t%20Cry%20%28Original%29.lrc"},{"name":"Let Her Go","artist":"Passenger","url":"https://file.neatman.club/43d9e0b6a4c536ed00bb/Let%20Her%20Go.mp3","cover":"https://file.neatman.club/b295d4f9dc7c4a5bc7d2/Let%20Her%20Go.jpg","lrc":"https://file.neatman.club/0c1071d75f0b54c07fc2/Let%20Her%20Go.lrc"},{"name":"总有一天你会出现在我身边","artist":"棱镜","url":"https://file.neatman.club/088370436bc35934c879/%E6%A3%B1%E9%95%9C%20-%20%E6%80%BB%E6%9C%89%E4%B8%80%E5%A4%A9%E4%BD%A0%E4%BC%9A%E5%87%BA%E7%8E%B0%E5%9C%A8%E6%88%91%E8%BA%AB%E8%BE%B9.mp3","cover":"https://file.neatman.club/1a067130b76ec0903fde/%E6%A3%B1%E9%95%9C%20-%20%E6%80%BB%E6%9C%89%E4%B8%80%E5%A4%A9%E4%BD%A0%E4%BC%9A%E5%87%BA%E7%8E%B0%E5%9C%A8%E6%88%91%E8%BA%AB%E8%BE%B9.jpg","lrc":"https://file.neatman.club/706724cac7e7543df882/%E6%A3%B1%E9%95%9C%20-%20%E6%80%BB%E6%9C%89%E4%B8%80%E5%A4%A9%E4%BD%A0%E4%BC%9A%E5%87%BA%E7%8E%B0%E5%9C%A8%E6%88%91%E8%BA%AB%E8%BE%B9.lrc"}]
-    });
-	
-	$('.aplayer-icon-lrc').click();
-  }
-</script>
-
-  
 
   
 
   <footer class="mt-5">
   <div class="text-center py-3">
-  
     <div>
       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
       <i class="iconfont icon-love"></i>
@@ -431,30 +416,27 @@ redis               latest              f7302e4ab3a8        7 months ago        
         <span>Fluid</span></a>
     </div>
     
-  <div>
-    
-      <!-- 不蒜子统计PV -->
-      
-      <span id="busuanzi_container_site_pv" style="display: none">
-      总访问量 <span id="busuanzi_value_site_pv"></span> 次
-    </span>
-    
-    
-      <!-- 不蒜子统计UV -->
-      
-      <span id="busuanzi_container_site_uv" style="display: none">
-      总访客数 <span id="busuanzi_value_site_uv"></span> 人
-    </span>
-    
-  </div>
-
 
     
   <!-- 备案信息 -->
   <div>
     <a href="http://beian.miit.gov.cn/" target="_blank" class="beian-icp"
-       rel="nofollow noopener">豫ICP备19030164号</a>
+       rel="nofollow noopener">豫ICP备19030164号-2</a>
     
+      <a
+        href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41088302410902"
+        rel="nofollow noopener"
+        class="beian-police"
+        target="_blank"
+      >
+        <span class="beian-police-sep">&nbsp;|&nbsp;</span>
+        
+          <img src="/img/police_beian.png" srcset="/img/loading.gif" alt="police-icon" />
+        
+        <span>豫公网安备 41088302410902号</span>
+      </a>
+     
+  </div>
 
 
     
@@ -472,7 +454,7 @@ redis               latest              f7302e4ab3a8        7 months ago        
 
 
   
-  <script  src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js" ></script>
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
   <script>
     $(document).ready(function () {
       var boardCtn = $('#board-ctn');
@@ -506,28 +488,38 @@ redis               latest              f7302e4ab3a8        7 months ago        
 
 
 
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
 
+
+  
+<script src="//at.alicdn.com/t/font_1778174_yyinj6hmu5q.js"></script>
 
 
 
 <!-- Plugins -->
 
 
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?d56ac95859faae795a8e53cf1f618b27";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
 
-  <script  src="https://cdn.staticfile.org/prettify/188.0.0/prettify.min.js" ></script>
-  <script>
-    $(document).ready(function () {
-      $('pre').each(function () {
-        const pre = $(this);
-        if (pre.find('code.mermaid').length > 0) {
-          return;
-        }
-        pre.addClass('prettyprint  linenums');
-      });
-      prettyPrint();
-    })
-  </script>
+  
+
+  
+
+  
+
+  
+
+  
 
 
 
@@ -554,7 +546,7 @@ redis               latest              f7302e4ab3a8        7 months ago        
   <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
   <script>
     anchors.options = {
-      placement: "left",
+      placement: "right",
       visible: "hover",
       
     };
@@ -573,7 +565,7 @@ redis               latest              f7302e4ab3a8        7 months ago        
     var path = "/local-search.xml";
     var inputArea = document.querySelector("#local-search-input");
     inputArea.onclick = function () {
-      getSearchFile(path);
+      searchFunc(path, 'local-search-input', 'local-search-result');
       this.onclick = null
     }
   </script>
@@ -597,6 +589,45 @@ redis               latest              f7302e4ab3a8        7 months ago        
 
 
 
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
+
+  
 
 
 
@@ -652,6 +683,26 @@ redis               latest              f7302e4ab3a8        7 months ago        
 
 
 
+  <script>(function (i, s, o, g, r, a, m) {
+      i['DaoVoiceObject'] = r;
+      i[r] = i[r] ||
+        function () {
+          (i[r].q = i[r].q || []).push(arguments);
+        };
+      i[r].l = 1 * new Date();
+      a = s.createElement(o);
+      m = s.getElementsByTagName(o)[0];
+      a.async = 1;
+      a.src = g;
+      a.charset = 'utf-8';
+      m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', ('https:' === document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/6ac93a8a.js", 'daovoice');
+    daovoice('init', {
+      app_id: "6ac93a8a",
+    });
+    daovoice('update');
+  </script>
+
 
 
 
@@ -667,5 +718,6 @@ redis               latest              f7302e4ab3a8        7 months ago        
 
 
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"dialog":{"enable":true,"hitokoto":true},"display":{"position":"right","width":150,"height":300,"hOffset":0,"vOffset":-20},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":1,"opacityOnHover":0.2},"log":false});</script></body>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"dialog":{"enable":true,"hitokoto":false},"display":{"position":"right","width":150,"height":300,"hOffset":0,"vOffset":-20},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":1,"opacityOnHover":0.2},"log":false});</script></body>
 </html>

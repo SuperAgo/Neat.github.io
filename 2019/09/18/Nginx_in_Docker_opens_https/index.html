@@ -7,8 +7,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/neat.png">
-  <link rel="icon" type="image/png" href="/img/neat.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://file.neatman.club/f5b96a15c5dd3ef552e5/a9w2k-w7jly-001.ico">
+  <link rel="icon" type="image/png" href="https://file.neatman.club/f5b96a15c5dd3ef552e5/a9w2k-w7jly-001.ico">
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -20,15 +20,19 @@
   <title>Docker中nginx开启https - Neat</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
-<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.18.1/styles/ir-black.min.css" />
+
 
 <!-- 主题依赖的图标库，不要自行修改 -->
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_9n5xqdrq0nc.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_fmb4a04yx8h.css">
 
 
 
-  <link  rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css" />
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_ijqayz9ro8k.css">
 
 
 
@@ -36,6 +40,10 @@
 <link  rel="stylesheet" href="/css/main.css" />
 
 <!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
 
 
 <meta name="generator" content="Hexo 4.2.0"></head>
@@ -57,12 +65,6 @@
     <!-- Collapsible content -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
-		
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
-          </li>
-        
         
           
           
@@ -118,13 +120,10 @@
               友链</a>
           </li>
         
-          
-          
-          
-          <li class="nav-item">
-            <a class="nav-link" href="/message/">
-              <i class="iconfont icon-love"></i>
-              留言</a>
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
           </li>
         
       </ul>
@@ -157,7 +156,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    503 字
+                    802 字
                   </span>
                 
 
@@ -167,18 +166,11 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    6
+                    10
                      分钟
                   </span>
                 
 
-                
-                  <!-- 不蒜子统计文章PV -->
-                  
-                  <span id="busuanzi_container_page_pv" class="post-meta" style="display: none">
-                    <i class="iconfont icon-eye" aria-hidden="true"></i>
-                    <span id="busuanzi_value_page_pv"></span> 次
-                  </span>
                 
               </div>
             
@@ -196,47 +188,63 @@
 
 <div class="container-fluid">
   <div class="row">
-  	
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div id="tocbot"></div>
-</div>
-
-      </div>
-    
+    <div class="d-none d-lg-block col-lg-2"></div>
     <div class="col-lg-8 nopadding-md">
       <div class="container nopadding-md" id="board-ctn">
         <div class="py-5" id="board">
           <div class="post-content mx-auto" id="post">
             
+              <p class="note note-info">
+                
+                  本文最后更新于：星期五, 四月 24日 2020, 2:33 下午
+                
+              </p>
+            
             <article class="markdown-body">
               <p>打开网页老是显示不安全，强迫症的我最终决定开启https.<br>由于使用的是阿里云，所以直接在阿里云上申请了ssl，比较简单这里就不多赘述。  </p>
-<h5 id="申请ssl备案通过后"><a href="#申请ssl备案通过后" class="headerlink" title="申请ssl备案通过后"></a>申请ssl备案通过后</h5><p><img src="/images/pasted-1.png" srcset="/img/loading.gif" alt="upload successful"><br>点击下载，选择nginx版本</p>
+<h5 id="1-申请ssl备案通过后"><a href="#1-申请ssl备案通过后" class="headerlink" title="1.申请ssl备案通过后"></a>1.申请ssl备案通过后</h5><p><img src="/images/pasted-1.png" srcset="/img/loading.gif" alt="upload successful"><br>点击下载，选择nginx版本</p>
 <p><img src="/images/pasted-2.png" srcset="/img/loading.gif" alt="upload successful"></p>
-<h5 id="nginx配置"><a href="#nginx配置" class="headerlink" title="nginx配置"></a>nginx配置</h5><p>首先将下载的pem文件和key文件上传至服务器nginx文件夹下（方便自己记忆的文件夹/映射文件夹）<br>然后打开nginx的配置文件<br>新增如下配置，开启http请求自动重定向至https</p>
-<pre><code>server {
+<h5 id="2-nginx配置"><a href="#2-nginx配置" class="headerlink" title="2.nginx配置"></a>2.nginx配置</h5><p>首先将下载的pem文件和key文件上传至服务器nginx文件夹下（方便自己记忆的文件夹/映射文件夹）<br>然后打开nginx的配置文件<br>新增如下配置，开启http请求自动重定向至https</p>
+<div class="hljs"><pre><code class="hljs plain">server &#123;
         listen       80;
         server_name  XXXXX;
-        return 301 https://$server_name$request_uri;   #将所有http请求通过rewrite重定向到https。
-    }</code></pre><p>然后添加</p>
-<pre><code>server {
-       listen    443 ssl;
+        return 301 https:&#x2F;&#x2F;$server_name$request_uri;   #将所有http请求通过rewrite重定向到https。
+    &#125;</code></pre></div>
+<p>然后添加</p>
+<div class="hljs"><pre><code class="hljs plain">server &#123;
+       listen	443 ssl;
        server_name  XXXXX;
 
-       #ssl on
-      ssl_certificate /etc/ssl/XXXXXX.pem;   #将domain name.pem替换成您证书的文件名。
-       ssl_certificate_key /etc/ssl/XXXXXX.key;   #将domain name.key替换成您证书的密钥文件名。
-       ssl_session_timeout 5m;
-       ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;  #使用此加密套件。
-       ssl_protocols TLSv1 TLSv1.1 TLSv1.2;   #使用该协议进行配置。
-       ssl_prefer_server_ciphers on;</code></pre><p>根据nginx版本不同,<br>*<em>nginx1.15.0更新日志<br>Changes with nginx 1.15.0                                        05 Jun 2018<br>    *) Change: the “ssl” directive is deprecated; the “ssl” parameter of the<br>       “listen” directive should be used instead.  *</em><br>so，nginx1.15.0前ssl开启使用 </p>
-<pre><code>listen    443
-ssl on</code></pre><p>1.15.0之后使用</p>
-<pre><code>listen 443 ssl</code></pre><p>否则会报<code>the &quot;ssl&quot; directive is deprecated, use the &quot;listen ... ssl&quot; directive instead in /etc/nginx/nginx.conf</code>错误<br>如果是没有使用docker直接使用的nginx到这一步就可以重启nginx然后通过https访问了。</p>
-<h5 id="docker映射修改"><a href="#docker映射修改" class="headerlink" title="docker映射修改"></a>docker映射修改</h5><p>由于我是用的是docker的nginx容器，所以需要修改一下映射命令（之前的文章有写）<br>加上新的ssl文件夹和443端口映射（443端口一定要加上，否则还是访问不了）</p>
-<pre><code>docker run --name nginx80 -d -p 443:443 -p 80:80 -v /data/nginx/html:/etc/nginx/html -v /data/nginx/conf/nginx.conf:/etc/nginx/nginx.conf  -v /data/nginx/logs:/var/log/nginx -v /data/nginx/conf.d:/etc/nginx/conf.d -v /data/nginx/ssl:/etc/nginx/ssl -d nginx:latest</code></pre><p>然后就可以愉快的使用https访问自己的网站啦！</p>
+	   #ssl on
+      ssl_certificate &#x2F;etc&#x2F;ssl&#x2F;XXXXXX.pem;   #将domain name.pem替换成您证书的文件名。
+	   ssl_certificate_key &#x2F;etc&#x2F;ssl&#x2F;XXXXXX.key;   #将domain name.key替换成您证书的密钥文件名。
+	   ssl_session_timeout 5m;
+	   ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;  #使用此加密套件。
+	   ssl_protocols TLSv1 TLSv1.1 TLSv1.2;   #使用该协议进行配置。
+	   ssl_prefer_server_ciphers on;</code></pre></div>
 
+<p>根据不同网站对不同浏览器的支持，<code>ssl_ciphers</code>与<code>ssl_protocols</code>可以斟酌配置  </p>
+<hr>
+<p><u><a href="#1">SSL／TLS 系列中有<strong>五种</strong>协议</a></u><sup>1</sup>：SSL v2，SSL v3，TLS v1.0，TLS v1.1和TLS v1.2：  </p>
+<ul>
+<li>SSL v2 是不安全的，不能使用。此协议版本非常糟糕，即使它们位于完全不同的服务器（DROWN 攻击）上也可以用来攻击具有相同名称的RSA 密钥和站点。</li>
+<li>当与 HTTP（POODLE 攻击）一起使用时，SSL v3 是不安全的，当与其他协议一起使用时，SSL v3 是弱的。它也是过时的，不应该被使用。</li>
+<li>TLS v1.0 也是不应该使用的传统协议，但在实践中通常仍然是必需的。其主要弱点（BEAST）在现代浏览器中得到缓解，但其他问题仍然存在。</li>
+<li>TLS v1.1 和 v1.2 都没有已知的安全问题，只有 v1.2 提供了现代的加密算法。</li>
+</ul>
+<hr>
+<p>根据nginx版本不同,<br>*<em>nginx1.15.0更新日志<br>Changes with nginx 1.15.0                                        05 Jun 2018<br>    *) Change: the “ssl” directive is deprecated; the “ssl” parameter of the<br>       “listen” directive should be used instead.  *</em><br>so，nginx1.15.0前ssl开启使用 </p>
+<div class="hljs"><pre><code class="hljs plain">listen	443
+ssl on</code></pre></div>
+<p>1.15.0之后使用</p>
+<div class="hljs"><pre><code class="hljs plain">listen 443 ssl</code></pre></div>
+<p>否则会报<code>the &quot;ssl&quot; directive is deprecated, use the &quot;listen ... ssl&quot; directive instead in /etc/nginx/nginx.conf</code>错误<br>如果是没有使用docker直接使用的nginx到这一步就可以重启nginx然后通过https访问了。</p>
+<h5 id="3-docker映射修改"><a href="#3-docker映射修改" class="headerlink" title="3.docker映射修改"></a>3.docker映射修改</h5><p>由于我是用的是docker的nginx容器，所以需要修改一下映射命令（之前的文章有写）<br>加上新的ssl文件夹和443端口映射（443端口一定要加上，否则还是访问不了）</p>
+<div class="hljs"><pre><code class="hljs plain">docker run --name nginx80 -d -p 443:443 -p 80:80 -v &#x2F;data&#x2F;nginx&#x2F;html:&#x2F;etc&#x2F;nginx&#x2F;html -v &#x2F;data&#x2F;nginx&#x2F;conf&#x2F;nginx.conf:&#x2F;etc&#x2F;nginx&#x2F;nginx.conf  -v &#x2F;data&#x2F;nginx&#x2F;logs:&#x2F;var&#x2F;log&#x2F;nginx -v &#x2F;data&#x2F;nginx&#x2F;conf.d:&#x2F;etc&#x2F;nginx&#x2F;conf.d -v &#x2F;data&#x2F;nginx&#x2F;ssl:&#x2F;etc&#x2F;nginx&#x2F;ssl -d nginx:latest</code></pre></div>
+<p>然后就可以愉快的使用https访问自己的网站啦！</p>
+<h5 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h5><span id="1">
+[1]<a href="https://blog.myssl.com/ssl-and-tls-deployment-best-practices/" target="_blank" rel="noopener" _blank>HTTPS 安全最佳实践（一）之SSL/TLS部署</a>
+</span>
             </article>
             <hr>
             <div>
@@ -255,9 +263,17 @@ ssl on</code></pre><p>1.15.0之后使用</p>
                     
                       <a class="hover-with-bg" href="/tags/Nginx/">Nginx</a>
                     
+                      <a class="hover-with-bg" href="/tags/Docker/">Docker</a>
+                    
+                      <a class="hover-with-bg" href="/tags/HTTPS/">HTTPS</a>
+                    
+                      <a class="hover-with-bg" href="/tags/SSL%EF%BC%8FTLS/">SSL／TLS</a>
+                    
                   </div>
                 
               </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 国际协议</a> 。转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">
@@ -290,32 +306,32 @@ ssl on</code></pre><p>1.15.0之后使用</p>
               <div class="comments" id="comments">
                 
                 
-  <script defer src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-  <script src="/js/src/Valine.min.js"></script>
+  <div id="vcomments"></div>
+  <script defer src="https://cdn.staticfile.org/valine/1.4.4/Valine.min.js" ></script>
+
   <script type="text/javascript">
-    var notify = 'false' === 'true';
-    var verify = 'true' === 'true';
     var oldLoadVa = window.onload;
     window.onload = function () {
       oldLoadVa && oldLoadVa();
 
-	 new Valine({
-        lang: 'zh-cn',
-        admin_email: 'super100wj@163.com',
-		notify: notify,
-        verify: verify,
-        el: '#comments' ,
-        appId: "BX3locaPJFzm8FDckhoObFw7-gzGzoHsz",
-        appKey: "suhWtka1QQwEaxryJ8LBoxAv",
-        emoticon_url: 'https://cloud.panjunwen.com/alu',
-        emoticon_list: ["狂汗.png","不说话.png","汗.png","坐等.png","献花.png","不高兴.png","中刀.png","害羞.png","皱眉.png","小眼睛.png","暗地观察.png"],
-        placeholder: "说点什么",
-		avatar: "/retro",
+      new Valine({
+        el: "#vcomments",
+        app_id: "BX3locaPJFzm8FDckhoObFw7-gzGzoHsz",
+        app_key: "suhWtka1QQwEaxryJ8LBoxAv",
+        placeholder: "说点什么吧，评论会邮件提醒哦~",
+        path: window.location.pathname,
+        avatar: "retro",
         meta: ["nick","mail","link"],
         pageSize: "10",
-	});
+        lang: "zh-CN",
+        highlight: false,
+        recordIP: true,
+        serverURLs: "",
+      });
     };
   </script>
+  <noscript>Please enable JavaScript to view the <a href="https://valine.js.org" target="_blank" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
 
 
               </div>
@@ -324,7 +340,15 @@ ssl on</code></pre><p>1.15.0之后使用</p>
         </div>
       </div>
     </div>
-	<div class="d-none d-lg-block col-lg-2"></div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
   </div>
 </div>
 
@@ -332,7 +356,7 @@ ssl on</code></pre><p>1.15.0之后使用</p>
 
   <div class="col-lg-7 mx-auto nopadding-md">
     <div class="container custom post-content mx-auto">
-      <img src="https://octodex.github.com/images/jetpacktocat.png" srcset="/img/loading.gif" class="rounded mx-auto d-block mt-5" style="width:150px; height:150px;">
+      <img src="/images/jetpacktocat.png" srcset="/img/loading.gif" class="rounded mx-auto d-block mt-5" style="width:150px; height:150px;">
     </div>
   </div>
 
@@ -371,38 +395,11 @@ ssl on</code></pre><p>1.15.0之后使用</p>
   
 
   
-    <!-- APlayer 音乐播放器 -->
-    <div id="aplayer"></div>
-    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
-<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
-<script type="text/javascript">
-  var oldLoadAp = window.onload;
-  window.onload = function () {
-    oldLoadAp && oldLoadAp();
-
-    new APlayer({
-      container: document.getElementById('aplayer'),
-      fixed: true,
-      autoplay: 'false' === 'true',
-	  lrcType: 3,
-      loop: 'all',
-      order: 'random',
-      theme: '#b7daff',
-      preload: 'none',
-      audio: [{"name":"Friend","artist":"玉置浩二","url":"https://file.neatman.club/6b86773c1c989750a39c/Friend.mp3","cover":"https://file.neatman.club/dac5127d6f45a95daea5/Friend.jpg","lrc":"https://file.neatman.club/eeff747817b8215a3347/Friend.lrc"},{"name":"Don`t Cry","artist":"Guns & Roses","url":"https://file.neatman.club/944df0c22808b5382a25/Don%27t%20Cry%20%28Original%29.mp3","cover":"https://file.neatman.club/7da2106a494695102b02/Don%27t%20Cry%20%28Original%29.jpg","lrc":"https://file.neatman.club/2c7da25f2ccd912cd22a/Don%27t%20Cry%20%28Original%29.lrc"},{"name":"Let Her Go","artist":"Passenger","url":"https://file.neatman.club/43d9e0b6a4c536ed00bb/Let%20Her%20Go.mp3","cover":"https://file.neatman.club/b295d4f9dc7c4a5bc7d2/Let%20Her%20Go.jpg","lrc":"https://file.neatman.club/0c1071d75f0b54c07fc2/Let%20Her%20Go.lrc"},{"name":"总有一天你会出现在我身边","artist":"棱镜","url":"https://file.neatman.club/088370436bc35934c879/%E6%A3%B1%E9%95%9C%20-%20%E6%80%BB%E6%9C%89%E4%B8%80%E5%A4%A9%E4%BD%A0%E4%BC%9A%E5%87%BA%E7%8E%B0%E5%9C%A8%E6%88%91%E8%BA%AB%E8%BE%B9.mp3","cover":"https://file.neatman.club/1a067130b76ec0903fde/%E6%A3%B1%E9%95%9C%20-%20%E6%80%BB%E6%9C%89%E4%B8%80%E5%A4%A9%E4%BD%A0%E4%BC%9A%E5%87%BA%E7%8E%B0%E5%9C%A8%E6%88%91%E8%BA%AB%E8%BE%B9.jpg","lrc":"https://file.neatman.club/706724cac7e7543df882/%E6%A3%B1%E9%95%9C%20-%20%E6%80%BB%E6%9C%89%E4%B8%80%E5%A4%A9%E4%BD%A0%E4%BC%9A%E5%87%BA%E7%8E%B0%E5%9C%A8%E6%88%91%E8%BA%AB%E8%BE%B9.lrc"}]
-    });
-	
-	$('.aplayer-icon-lrc').click();
-  }
-</script>
-
-  
 
   
 
   <footer class="mt-5">
   <div class="text-center py-3">
-  
     <div>
       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
       <i class="iconfont icon-love"></i>
@@ -410,30 +407,27 @@ ssl on</code></pre><p>1.15.0之后使用</p>
         <span>Fluid</span></a>
     </div>
     
-  <div>
-    
-      <!-- 不蒜子统计PV -->
-      
-      <span id="busuanzi_container_site_pv" style="display: none">
-      总访问量 <span id="busuanzi_value_site_pv"></span> 次
-    </span>
-    
-    
-      <!-- 不蒜子统计UV -->
-      
-      <span id="busuanzi_container_site_uv" style="display: none">
-      总访客数 <span id="busuanzi_value_site_uv"></span> 人
-    </span>
-    
-  </div>
-
 
     
   <!-- 备案信息 -->
   <div>
     <a href="http://beian.miit.gov.cn/" target="_blank" class="beian-icp"
-       rel="nofollow noopener">豫ICP备19030164号</a>
+       rel="nofollow noopener">豫ICP备19030164号-2</a>
     
+      <a
+        href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41088302410902"
+        rel="nofollow noopener"
+        class="beian-police"
+        target="_blank"
+      >
+        <span class="beian-police-sep">&nbsp;|&nbsp;</span>
+        
+          <img src="/img/police_beian.png" srcset="/img/loading.gif" alt="police-icon" />
+        
+        <span>豫公网安备 41088302410902号</span>
+      </a>
+     
+  </div>
 
 
     
@@ -451,7 +445,7 @@ ssl on</code></pre><p>1.15.0之后使用</p>
 
 
   
-  <script  src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js" ></script>
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
   <script>
     $(document).ready(function () {
       var boardCtn = $('#board-ctn');
@@ -485,28 +479,38 @@ ssl on</code></pre><p>1.15.0之后使用</p>
 
 
 
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
 
+
+  
+<script src="//at.alicdn.com/t/font_1778174_yyinj6hmu5q.js"></script>
 
 
 
 <!-- Plugins -->
 
 
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?d56ac95859faae795a8e53cf1f618b27";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
 
-  <script  src="https://cdn.staticfile.org/prettify/188.0.0/prettify.min.js" ></script>
-  <script>
-    $(document).ready(function () {
-      $('pre').each(function () {
-        const pre = $(this);
-        if (pre.find('code.mermaid').length > 0) {
-          return;
-        }
-        pre.addClass('prettyprint  linenums');
-      });
-      prettyPrint();
-    })
-  </script>
+  
+
+  
+
+  
+
+  
+
+  
 
 
 
@@ -533,7 +537,7 @@ ssl on</code></pre><p>1.15.0之后使用</p>
   <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
   <script>
     anchors.options = {
-      placement: "left",
+      placement: "right",
       visible: "hover",
       
     };
@@ -552,7 +556,7 @@ ssl on</code></pre><p>1.15.0之后使用</p>
     var path = "/local-search.xml";
     var inputArea = document.querySelector("#local-search-input");
     inputArea.onclick = function () {
-      getSearchFile(path);
+      searchFunc(path, 'local-search-input', 'local-search-result');
       this.onclick = null
     }
   </script>
@@ -576,6 +580,45 @@ ssl on</code></pre><p>1.15.0之后使用</p>
 
 
 
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
+
+  
 
 
 
@@ -631,6 +674,26 @@ ssl on</code></pre><p>1.15.0之后使用</p>
 
 
 
+  <script>(function (i, s, o, g, r, a, m) {
+      i['DaoVoiceObject'] = r;
+      i[r] = i[r] ||
+        function () {
+          (i[r].q = i[r].q || []).push(arguments);
+        };
+      i[r].l = 1 * new Date();
+      a = s.createElement(o);
+      m = s.getElementsByTagName(o)[0];
+      a.async = 1;
+      a.src = g;
+      a.charset = 'utf-8';
+      m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', ('https:' === document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/6ac93a8a.js", 'daovoice');
+    daovoice('init', {
+      app_id: "6ac93a8a",
+    });
+    daovoice('update');
+  </script>
+
 
 
 
@@ -646,5 +709,6 @@ ssl on</code></pre><p>1.15.0之后使用</p>
 
 
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"dialog":{"enable":true,"hitokoto":true},"display":{"position":"right","width":150,"height":300,"hOffset":0,"vOffset":-20},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":1,"opacityOnHover":0.2},"log":false});</script></body>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"dialog":{"enable":true,"hitokoto":false},"display":{"position":"right","width":150,"height":300,"hOffset":0,"vOffset":-20},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":1,"opacityOnHover":0.2},"log":false});</script></body>
 </html>

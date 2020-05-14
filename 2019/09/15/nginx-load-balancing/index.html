@@ -7,8 +7,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/neat.png">
-  <link rel="icon" type="image/png" href="/img/neat.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://file.neatman.club/f5b96a15c5dd3ef552e5/a9w2k-w7jly-001.ico">
+  <link rel="icon" type="image/png" href="https://file.neatman.club/f5b96a15c5dd3ef552e5/a9w2k-w7jly-001.ico">
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -20,15 +20,19 @@
   <title>Nginx实现负载均衡的几种方法 - Neat</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
-<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.18.1/styles/ir-black.min.css" />
+
 
 <!-- 主题依赖的图标库，不要自行修改 -->
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_9n5xqdrq0nc.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_fmb4a04yx8h.css">
 
 
 
-  <link  rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css" />
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_ijqayz9ro8k.css">
 
 
 
@@ -36,6 +40,10 @@
 <link  rel="stylesheet" href="/css/main.css" />
 
 <!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
 
 
 <meta name="generator" content="Hexo 4.2.0"></head>
@@ -57,12 +65,6 @@
     <!-- Collapsible content -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
-		
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
-          </li>
-        
         
           
           
@@ -118,13 +120,10 @@
               友链</a>
           </li>
         
-          
-          
-          
-          <li class="nav-item">
-            <a class="nav-link" href="/message/">
-              <i class="iconfont icon-love"></i>
-              留言</a>
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
           </li>
         
       </ul>
@@ -157,7 +156,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    383 字
+                    414 字
                   </span>
                 
 
@@ -167,18 +166,11 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    4
+                    5
                      分钟
                   </span>
                 
 
-                
-                  <!-- 不蒜子统计文章PV -->
-                  
-                  <span id="busuanzi_container_page_pv" class="post-meta" style="display: none">
-                    <i class="iconfont icon-eye" aria-hidden="true"></i>
-                    <span id="busuanzi_value_page_pv"></span> 次
-                  </span>
                 
               </div>
             
@@ -196,70 +188,75 @@
 
 <div class="container-fluid">
   <div class="row">
-  	
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div id="tocbot"></div>
-</div>
-
-      </div>
-    
+    <div class="d-none d-lg-block col-lg-2"></div>
     <div class="col-lg-8 nopadding-md">
       <div class="container nopadding-md" id="board-ctn">
         <div class="py-5" id="board">
           <div class="post-content mx-auto" id="post">
             
+              <p class="note note-info">
+                
+                  本文最后更新于：星期五, 四月 17日 2020, 5:46 下午
+                
+              </p>
+            
             <article class="markdown-body">
-              <h3 id="一、Nginx负载均衡的集中方式介绍"><a href="#一、Nginx负载均衡的集中方式介绍" class="headerlink" title="一、Nginx负载均衡的集中方式介绍"></a><strong>一、Nginx负载均衡的集中方式介绍</strong></h3><p><strong>1.1 轮询</strong><br>轮询方式是Nginx负载默认的方式，顾名思义，所有请求都按照时间顺序分配到不同的服务上，如果服务Down掉，可以自动剔除，如下配置后轮训1001服务和1002服务。</p>
-<pre><code>upstream  localhost-server {
+              <h3 id="一、Nginx负载均衡的集中方式介绍"><a href="#一、Nginx负载均衡的集中方式介绍" class="headerlink" title="一、Nginx负载均衡的集中方式介绍"></a><strong>一、Nginx负载均衡的集中方式介绍</strong></h3><h4 id="1-1-轮询"><a href="#1-1-轮询" class="headerlink" title="1.1 轮询"></a><strong>1.1 轮询</strong></h4><p>轮询方式是Nginx负载默认的方式，顾名思义，所有请求都按照时间顺序分配到不同的服务上，如果服务Down掉，可以自动剔除，如下配置后轮训1001服务和1002服务。</p>
+<div class="hljs"><pre><code class="hljs plain">upstream  localhost-server &#123;
        server    localhost:1001;
        server    localhost:1002;
-}</code></pre><p><strong>1.2 权重</strong><br>指定每个服务的权重比例，weight和访问比率成正比，通常用于后端服务机器性能不统一，将性能好的分配权重高来发挥服务器最大性能，如下配置后1002服务的访问比率会是1001服务的二倍。</p>
-<pre><code>upstream  localhost-server {
-       server    localhost:1001 weight=1;
-       server    localhost:1002 weight=2;
-}</code></pre><p><strong>1.3 iphash</strong><br>每个请求都根据访问ip的hash结果分配，经过这样的处理，每个访客固定访问一个后端服务，如下配置（ip_hash可以和weight配合使用）。</p>
-<pre><code>upstream  localhost-server {
+&#125;</code></pre></div>
+<h4 id="1-2-权重"><a href="#1-2-权重" class="headerlink" title="1.2 权重"></a><strong>1.2 权重</strong></h4><p>指定每个服务的权重比例，weight和访问比率成正比，通常用于后端服务机器性能不统一，将性能好的分配权重高来发挥服务器最大性能，如下配置后1002服务的访问比率会是1001服务的二倍。</p>
+<div class="hljs"><pre><code class="hljs plain">upstream  localhost-server &#123;
+       server    localhost:1001 weight&#x3D;1;
+       server    localhost:1002 weight&#x3D;2;
+&#125;</code></pre></div>
+<h4 id="1-3-iphash"><a href="#1-3-iphash" class="headerlink" title="1.3 iphash"></a><strong>1.3 iphash</strong></h4><p>每个请求都根据访问ip的hash结果分配，经过这样的处理，每个访客固定访问一个后端服务，如下配置（ip_hash可以和weight配合使用）。</p>
+<div class="hljs"><pre><code class="hljs plain">upstream  localhost-server &#123;
        ip_hash; 
-       server    localhost:1001 weight=1;
-       server    localhost:1002 weight=2;
-}</code></pre><p><strong>1.4 最少连接</strong><br>将请求分配到连接数最少的服务上。</p>
-<pre><code>upstream  localhost-server {
+       server    localhost:1001 weight&#x3D;1;
+       server    localhost:1002 weight&#x3D;2;
+&#125;</code></pre></div>
+<h4 id="1-4-最少连接"><a href="#1-4-最少连接" class="headerlink" title="1.4 最少连接"></a><strong>1.4 最少连接</strong></h4><p>将请求分配到连接数最少的服务上。</p>
+<div class="hljs"><pre><code class="hljs plain">upstream  localhost-server &#123;
        least_conn;
-       server    localhost:1001 weight=1;
-       server    localhost:1002 weight=2;
-}</code></pre><p><strong>1.5 fair</strong><br>按后端服务器的响应时间来分配请求，响应时间短的优先分配。</p>
-<pre><code>upstream  localhost-server {
-       server    localhost:1001 weight=1;
-       server    localhost:1002 weight=2;
+       server    localhost:1001 weight&#x3D;1;
+       server    localhost:1002 weight&#x3D;2;
+&#125;</code></pre></div>
+<h4 id="1-5-fair"><a href="#1-5-fair" class="headerlink" title="1.5 fair"></a><strong>1.5 fair</strong></h4><p>按后端服务器的响应时间来分配请求，响应时间短的优先分配。</p>
+<div class="hljs"><pre><code class="hljs plain">upstream  localhost-server &#123;
+       server    localhost:1001 weight&#x3D;1;
+       server    localhost:1002 weight&#x3D;2;
        fair;  
-}</code></pre><h3 id="二、Nginx配置"><a href="#二、Nginx配置" class="headerlink" title="二、Nginx配置"></a><strong>二、Nginx配置</strong></h3><p>以轮训为例，nginx.conf完整代码。</p>
-<pre><code>worker_processes  1;
+&#125;</code></pre></div>
+<h3 id="二、Nginx配置"><a href="#二、Nginx配置" class="headerlink" title="二、Nginx配置"></a><strong>二、Nginx配置</strong></h3><p>以轮训为例，nginx.conf完整代码。</p>
+<div class="hljs"><pre><code class="hljs plain">worker_processes  1;
 
-events {
+events &#123;
     worker_connections  1024;
-}
+&#125;
 
 
-http {
-   upstream  localhost-server {
+http &#123;
+   upstream  localhost-server &#123;
        server    localhost:1001;
        server    localhost:1002;
-   }
+   &#125;
 
-   server {
+   server &#123;
        listen       80;
        server_name  localhost;
 
-       location / {
-        proxy_pass http://localhost-server;
+       location &#x2F; &#123;
+        proxy_pass http:&#x2F;&#x2F;localhost-server;
         proxy_redirect default;
-      }
+      &#125;
 
-    }
+    &#125;
 
-}</code></pre><p>如果要修改负载均衡算法修改对应upstream模块即可。</p>
+&#125;</code></pre></div>
+
+<p>如果要修改负载均衡算法修改对应upstream模块即可。</p>
 
             </article>
             <hr>
@@ -284,6 +281,8 @@ http {
                   </div>
                 
               </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 国际协议</a> 。转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">
@@ -316,32 +315,32 @@ http {
               <div class="comments" id="comments">
                 
                 
-  <script defer src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-  <script src="/js/src/Valine.min.js"></script>
+  <div id="vcomments"></div>
+  <script defer src="https://cdn.staticfile.org/valine/1.4.4/Valine.min.js" ></script>
+
   <script type="text/javascript">
-    var notify = 'false' === 'true';
-    var verify = 'true' === 'true';
     var oldLoadVa = window.onload;
     window.onload = function () {
       oldLoadVa && oldLoadVa();
 
-	 new Valine({
-        lang: 'zh-cn',
-        admin_email: 'super100wj@163.com',
-		notify: notify,
-        verify: verify,
-        el: '#comments' ,
-        appId: "BX3locaPJFzm8FDckhoObFw7-gzGzoHsz",
-        appKey: "suhWtka1QQwEaxryJ8LBoxAv",
-        emoticon_url: 'https://cloud.panjunwen.com/alu',
-        emoticon_list: ["狂汗.png","不说话.png","汗.png","坐等.png","献花.png","不高兴.png","中刀.png","害羞.png","皱眉.png","小眼睛.png","暗地观察.png"],
-        placeholder: "说点什么",
-		avatar: "/retro",
+      new Valine({
+        el: "#vcomments",
+        app_id: "BX3locaPJFzm8FDckhoObFw7-gzGzoHsz",
+        app_key: "suhWtka1QQwEaxryJ8LBoxAv",
+        placeholder: "说点什么吧，评论会邮件提醒哦~",
+        path: window.location.pathname,
+        avatar: "retro",
         meta: ["nick","mail","link"],
         pageSize: "10",
-	});
+        lang: "zh-CN",
+        highlight: false,
+        recordIP: true,
+        serverURLs: "",
+      });
     };
   </script>
+  <noscript>Please enable JavaScript to view the <a href="https://valine.js.org" target="_blank" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
 
 
               </div>
@@ -350,7 +349,15 @@ http {
         </div>
       </div>
     </div>
-	<div class="d-none d-lg-block col-lg-2"></div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
   </div>
 </div>
 
@@ -358,7 +365,7 @@ http {
 
   <div class="col-lg-7 mx-auto nopadding-md">
     <div class="container custom post-content mx-auto">
-      <img src="https://octodex.github.com/images/jetpacktocat.png" srcset="/img/loading.gif" class="rounded mx-auto d-block mt-5" style="width:150px; height:150px;">
+      <img src="/images/jetpacktocat.png" srcset="/img/loading.gif" class="rounded mx-auto d-block mt-5" style="width:150px; height:150px;">
     </div>
   </div>
 
@@ -397,38 +404,11 @@ http {
   
 
   
-    <!-- APlayer 音乐播放器 -->
-    <div id="aplayer"></div>
-    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
-<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
-<script type="text/javascript">
-  var oldLoadAp = window.onload;
-  window.onload = function () {
-    oldLoadAp && oldLoadAp();
-
-    new APlayer({
-      container: document.getElementById('aplayer'),
-      fixed: true,
-      autoplay: 'false' === 'true',
-	  lrcType: 3,
-      loop: 'all',
-      order: 'random',
-      theme: '#b7daff',
-      preload: 'none',
-      audio: [{"name":"Friend","artist":"玉置浩二","url":"https://file.neatman.club/6b86773c1c989750a39c/Friend.mp3","cover":"https://file.neatman.club/dac5127d6f45a95daea5/Friend.jpg","lrc":"https://file.neatman.club/eeff747817b8215a3347/Friend.lrc"},{"name":"Don`t Cry","artist":"Guns & Roses","url":"https://file.neatman.club/944df0c22808b5382a25/Don%27t%20Cry%20%28Original%29.mp3","cover":"https://file.neatman.club/7da2106a494695102b02/Don%27t%20Cry%20%28Original%29.jpg","lrc":"https://file.neatman.club/2c7da25f2ccd912cd22a/Don%27t%20Cry%20%28Original%29.lrc"},{"name":"Let Her Go","artist":"Passenger","url":"https://file.neatman.club/43d9e0b6a4c536ed00bb/Let%20Her%20Go.mp3","cover":"https://file.neatman.club/b295d4f9dc7c4a5bc7d2/Let%20Her%20Go.jpg","lrc":"https://file.neatman.club/0c1071d75f0b54c07fc2/Let%20Her%20Go.lrc"},{"name":"总有一天你会出现在我身边","artist":"棱镜","url":"https://file.neatman.club/088370436bc35934c879/%E6%A3%B1%E9%95%9C%20-%20%E6%80%BB%E6%9C%89%E4%B8%80%E5%A4%A9%E4%BD%A0%E4%BC%9A%E5%87%BA%E7%8E%B0%E5%9C%A8%E6%88%91%E8%BA%AB%E8%BE%B9.mp3","cover":"https://file.neatman.club/1a067130b76ec0903fde/%E6%A3%B1%E9%95%9C%20-%20%E6%80%BB%E6%9C%89%E4%B8%80%E5%A4%A9%E4%BD%A0%E4%BC%9A%E5%87%BA%E7%8E%B0%E5%9C%A8%E6%88%91%E8%BA%AB%E8%BE%B9.jpg","lrc":"https://file.neatman.club/706724cac7e7543df882/%E6%A3%B1%E9%95%9C%20-%20%E6%80%BB%E6%9C%89%E4%B8%80%E5%A4%A9%E4%BD%A0%E4%BC%9A%E5%87%BA%E7%8E%B0%E5%9C%A8%E6%88%91%E8%BA%AB%E8%BE%B9.lrc"}]
-    });
-	
-	$('.aplayer-icon-lrc').click();
-  }
-</script>
-
-  
 
   
 
   <footer class="mt-5">
   <div class="text-center py-3">
-  
     <div>
       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
       <i class="iconfont icon-love"></i>
@@ -436,30 +416,27 @@ http {
         <span>Fluid</span></a>
     </div>
     
-  <div>
-    
-      <!-- 不蒜子统计PV -->
-      
-      <span id="busuanzi_container_site_pv" style="display: none">
-      总访问量 <span id="busuanzi_value_site_pv"></span> 次
-    </span>
-    
-    
-      <!-- 不蒜子统计UV -->
-      
-      <span id="busuanzi_container_site_uv" style="display: none">
-      总访客数 <span id="busuanzi_value_site_uv"></span> 人
-    </span>
-    
-  </div>
-
 
     
   <!-- 备案信息 -->
   <div>
     <a href="http://beian.miit.gov.cn/" target="_blank" class="beian-icp"
-       rel="nofollow noopener">豫ICP备19030164号</a>
+       rel="nofollow noopener">豫ICP备19030164号-2</a>
     
+      <a
+        href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41088302410902"
+        rel="nofollow noopener"
+        class="beian-police"
+        target="_blank"
+      >
+        <span class="beian-police-sep">&nbsp;|&nbsp;</span>
+        
+          <img src="/img/police_beian.png" srcset="/img/loading.gif" alt="police-icon" />
+        
+        <span>豫公网安备 41088302410902号</span>
+      </a>
+     
+  </div>
 
 
     
@@ -477,7 +454,7 @@ http {
 
 
   
-  <script  src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js" ></script>
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
   <script>
     $(document).ready(function () {
       var boardCtn = $('#board-ctn');
@@ -511,28 +488,38 @@ http {
 
 
 
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
 
+
+  
+<script src="//at.alicdn.com/t/font_1778174_yyinj6hmu5q.js"></script>
 
 
 
 <!-- Plugins -->
 
 
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?d56ac95859faae795a8e53cf1f618b27";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
 
-  <script  src="https://cdn.staticfile.org/prettify/188.0.0/prettify.min.js" ></script>
-  <script>
-    $(document).ready(function () {
-      $('pre').each(function () {
-        const pre = $(this);
-        if (pre.find('code.mermaid').length > 0) {
-          return;
-        }
-        pre.addClass('prettyprint  linenums');
-      });
-      prettyPrint();
-    })
-  </script>
+  
+
+  
+
+  
+
+  
+
+  
 
 
 
@@ -559,7 +546,7 @@ http {
   <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
   <script>
     anchors.options = {
-      placement: "left",
+      placement: "right",
       visible: "hover",
       
     };
@@ -578,7 +565,7 @@ http {
     var path = "/local-search.xml";
     var inputArea = document.querySelector("#local-search-input");
     inputArea.onclick = function () {
-      getSearchFile(path);
+      searchFunc(path, 'local-search-input', 'local-search-result');
       this.onclick = null
     }
   </script>
@@ -602,6 +589,45 @@ http {
 
 
 
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
+
+  
 
 
 
@@ -657,6 +683,26 @@ http {
 
 
 
+  <script>(function (i, s, o, g, r, a, m) {
+      i['DaoVoiceObject'] = r;
+      i[r] = i[r] ||
+        function () {
+          (i[r].q = i[r].q || []).push(arguments);
+        };
+      i[r].l = 1 * new Date();
+      a = s.createElement(o);
+      m = s.getElementsByTagName(o)[0];
+      a.async = 1;
+      a.src = g;
+      a.charset = 'utf-8';
+      m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', ('https:' === document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/6ac93a8a.js", 'daovoice');
+    daovoice('init', {
+      app_id: "6ac93a8a",
+    });
+    daovoice('update');
+  </script>
+
 
 
 
@@ -672,5 +718,6 @@ http {
 
 
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"dialog":{"enable":true,"hitokoto":true},"display":{"position":"right","width":150,"height":300,"hOffset":0,"vOffset":-20},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":1,"opacityOnHover":0.2},"log":false});</script></body>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"dialog":{"enable":true,"hitokoto":false},"display":{"position":"right","width":150,"height":300,"hOffset":0,"vOffset":-20},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":1,"opacityOnHover":0.2},"log":false});</script></body>
 </html>
