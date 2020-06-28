@@ -20,21 +20,25 @@
   <title>关于 - Neat</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
-<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.18.1/styles/ir-black.min.css" />
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.18.1/styles/ir-black.min.css" />
+  
+
+  
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_fmb4a04yx8h.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
 
 
 
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_ijqayz9ro8k.css">
-
-
 
 
 <link  rel="stylesheet" href="/css/main.css" />
@@ -46,6 +50,7 @@
 
 
 
+  <script  src="/js/utils.js" ></script>
 <meta name="generator" content="Hexo 4.2.0"></head>
 
 
@@ -69,56 +74,81 @@
           
           
           
-          <li class="nav-item">
-            <a class="nav-link" href="/">
-              <i class="iconfont icon-home-fill"></i>
-              首页</a>
-          </li>
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
         
           
           
           
-          <li class="nav-item">
-            <a class="nav-link" href="/archives/">
-              <i class="iconfont icon-archive-fill"></i>
-              归档</a>
-          </li>
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
         
           
           
           
-          <li class="nav-item">
-            <a class="nav-link" href="/categories/">
-              <i class="iconfont icon-category-fill"></i>
-              分类</a>
-          </li>
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
         
           
           
           
-          <li class="nav-item">
-            <a class="nav-link" href="/tags/">
-              <i class="iconfont icon-tags-fill"></i>
-              标签</a>
-          </li>
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
         
           
           
           
-          <li class="nav-item">
-            <a class="nav-link" href="/about/">
-              <i class="iconfont icon-user-fill"></i>
-              关于</a>
-          </li>
-        
           
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                其他
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/links/">
+                    <i class="iconfont icon-link-fill"></i>
+                    友链
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/2020/01/01/messageBoard/">
+                    <i class="iconfont icon-link-fill"></i>
+                    留言板
+                  </a>
+                
+              </div>
+            </li>
           
-          
-          <li class="nav-item">
-            <a class="nav-link" href="/links/">
-              <i class="iconfont icon-link-fill"></i>
-              友链</a>
-          </li>
         
         
           <li class="nav-item" id="search-btn">
@@ -175,7 +205,10 @@
         
         
         
-        <a href="javascript:;" class="qr-trigger">
+        <a href="javascript:;" class="qr-trigger
+           "
+           
+        >
           <i class="iconfont icon-qq-fill" aria-hidden="true"></i>
           
             <img class="qr-img" src="/images/qq.jpg" srcset="/img/loading.gif" alt="qrcode" />
@@ -185,7 +218,10 @@
         
         
         
-        <a href="javascript:;" class="qr-trigger">
+        <a href="javascript:;" class="qr-trigger
+           "
+           
+        >
           <i class="iconfont icon-wechat-fill" aria-hidden="true"></i>
           
             <img class="qr-img" src="/images/wechat.jpg" srcset="/img/loading.gif" alt="qrcode" />
@@ -195,7 +231,10 @@
         
         
         
-        <a href="mailto:super100wj@163.com" class="">
+        <a href="mailto:super100wj@163.com" class="
+           "
+           
+        >
           <i class="iconfont icon-mail" aria-hidden="true"></i>
           
         </a>
@@ -205,30 +244,28 @@
 </div>
 <div class="mt-5 markdown-body">
   <hr>
-<h3 id="🐱‍🏍关于Neat✨"><a href="#🐱‍🏍关于Neat✨" class="headerlink" title="🐱‍🏍关于Neat✨"></a>🐱‍🏍关于Neat✨</h3><p style="text-indent:2em">
-一直想拥有一个在线的备忘录，起初自己写了一个java后台,照葫芦画瓢的做出了一个前台页面，后来发现有运行速度、页面适配等等各种各样的小问题，总是处在不尽然的状态，然后就因为种种原因搁置许久。当发现hexo的时候就喜欢了，真的省心，主题界面可配置项还蛮多，真香🎈~   还有就是，根据域名，起初我想给blog起名叫“洁癖老男人俱乐部👨‍👨‍👦‍👦”，emm，过于的。。。风骚，遂作罢😂
+<h3 id="🐱‍🏍关于Neat"><a href="#🐱‍🏍关于Neat" class="headerlink" title="🐱‍🏍关于Neat"></a>🐱‍🏍关于Neat</h3><p style="text-indent:2em">
+一直想拥有一个在线的备忘录，起初自己写了一个java后台,照葫芦画瓢的做出了一个前台页面，后来发现有运行速度、页面适配等等各种各样的小问题，总是处在不尽然的状态，然后就因为种种原因搁置许久。当发现hexo的时候就喜欢了，真的省心，主题界面可配置项还蛮多，真香~   还有就是，根据域名，起初我想给blog起名叫“洁癖老男人俱乐部👨‍👨‍👦‍👦”，emm，过于的。。。风骚，遂作罢😂
 </p>
 
-<h3 id="🤳六六😎"><a href="#🤳六六😎" class="headerlink" title="🤳六六😎"></a>🤳六六😎</h3><ul>
-<li>关于<code>@六六</code>是我在蒙昧时期读过的一本小说的主角。他同我，好像除了活着一样需要吃喝拉撒外，并没有任何相似的地方。所以长日斗争于内卷化的我，对他的潇洒恣肆有些许向往。</li>
-<li>偶尔是有梦想的社畜，在尘世里浮沉的菜鸡代码复制员👻</li>
+<h3 id="😎六六"><a href="#😎六六" class="headerlink" title="😎六六"></a>😎六六</h3><ul>
+<li>偶尔有梦想的社畜，在尘世里浮沉的菜鸡代码复制员👻</li>
 </ul>
-<h3 id="📣鸣谢💌"><a href="#📣鸣谢💌" class="headerlink" title="📣鸣谢💌"></a>📣鸣谢💌</h3><ul>
-<li><a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">hexo</a> 框架强力驱动🔋</li>
-<li>主题来自<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="noopener">fluid</a>🌹  </li>
-<li>壁纸部分来自<a href="https://wallhaven.cc/" target="_blank" rel="noopener">🔗Wallhaven</a>🌈</li>
+<h3 id="💌鸣谢"><a href="#💌鸣谢" class="headerlink" title="💌鸣谢"></a>💌鸣谢</h3><ul>
+<li><a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">hexo</a> 框架强力驱动</li>
+<li>主题来自<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="noopener">fluid</a></li>
+<li>壁纸部分来自<a href="https://wallhaven.cc/" target="_blank" rel="noopener">🔗Wallhaven</a></li>
 </ul>
-<h3 id="📢声明🛸"><a href="#📢声明🛸" class="headerlink" title="📢声明🛸"></a>📢声明🛸</h3><ul>
+<h3 id="📣声明"><a href="#📣声明" class="headerlink" title="📣声明"></a>📣声明</h3><ul>
 <li><p>除特殊说明，本站原创内容（包括但不限于文章、图像等）采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a> 进行许可。 本站文章除注明转载外，均为原创文章。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
 </li>
 <li><p>本站部分内容转载于网络，出处可查的已在文后署名作者并附加原文链接，著作权归作者所有。出处已不可寻的皆已标注来源于网络，若您认为本站有部分内容侵犯了您的版权，请告知我，我将认真处理。</p>
 </li>
 </ul>
-<h2 id="👣感谢您的来访💕"><a href="#👣感谢您的来访💕" class="headerlink" title="👣感谢您的来访💕~"></a>👣感谢您的来访💕~</h2><p>🐱‍💻neat也支持在Android手机上运行啦(暂未适配ios)。可以点击<a href="/app/Neat_1.0.apk"><strong>🔌下载</strong></a>，也可以扫码下载，如果喜欢本站的话可以下载下来，常来看看哦~</p>
+<h2 id="🛸感谢您的来访"><a href="#🛸感谢您的来访" class="headerlink" title="🛸感谢您的来访~"></a>🛸感谢您的来访~</h2><p>neat也支持在Android手机上运行啦(暂未适配ios)。可以点击<a href="/app/Neat_1.0.apk"><strong>🔌下载</strong></a>，也可以扫码下载，如果喜欢本站的话可以下载下来，常来看看哦~</p>
 <center>
     <img src="/app/neat.png" srcset="/img/loading.gif" style="max-width: 10rem;"/>    
 </center>
-
 </div>
 
               </div>
@@ -308,8 +345,8 @@
 
     
   <!-- 备案信息 -->
-  <div>
-    <a href="http://beian.miit.gov.cn/" target="_blank" class="beian-icp"
+  <div class="beian">
+    <a href="http://beian.miit.gov.cn/" target="_blank"
        rel="nofollow noopener">豫ICP备19030164号-2</a>
     
       <a
@@ -335,18 +372,201 @@
 <!-- SCRIPTS -->
 <script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
 <script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
 <script  src="/js/main.js" ></script>
 
+<!-- Plugins -->
 
-  <script  src="/js/lazyload.js" ></script>
 
-
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
   <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
   <script  src="/js/clipboard-use.js" ></script>
 
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true' && window.location.hostname !== 'localhost';
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('false' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/about/index.html');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = 'BX3locaPJFzm8FDckhoObFw7-gzGzoHsz'
+    var app_key = 'suhWtka1QQwEaxryJ8LBoxAv'
+    var server_url = 'https://api.neatman.club'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(resp => resp.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
 
 
 
@@ -356,31 +576,6 @@
 
 
 
-<!-- Plugins -->
-
-
-  
-    <!-- Baidu Analytics -->
-    <script defer>
-      var _hmt = _hmt || [];
-      (function () {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?d56ac95859faae795a8e53cf1f618b27";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-      })();
-    </script>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 
 
 
@@ -515,6 +710,32 @@
 
 
 
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?d56ac95859faae795a8e53cf1f618b27";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
 
 
